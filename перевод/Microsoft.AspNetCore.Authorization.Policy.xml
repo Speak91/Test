@@ -1,0 +1,312 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.AspNetCore.Authorization.Policy</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.AspNetCore.Authorization.Policy.AuthenticationFeatures">
+            <summary>
+            Обеспечивает согласованность между User и AuthenticationResult
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authorization.Policy.AuthorizationMiddlewareResultHandler">
+            <summary>
+            Реализация по умолчанию для <see cref="T:Microsoft.AspNetCore.Authorization.IAuthorizationMiddlewareResultHandler"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authorization.Policy.AuthorizationMiddlewareResultHandler.HandleAsync(Microsoft.AspNetCore.Http.RequestDelegate,Microsoft.AspNetCore.Http.HttpContext,Microsoft.AspNetCore.Authorization.AuthorizationPolicy,Microsoft.AspNetCore.Authorization.Policy.PolicyAuthorizationResult)">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authorization.Policy.IPolicyEvaluaвr">
+            <summary>
+            Базовый класс для обработчиков авторизации, которые должны вызываться для определенного типа требований.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authorization.Policy.IPolicyEvaluaвr.AuthenticateAsync(Microsoft.AspNetCore.Authorization.AuthorizationPolicy,Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Выполняет аутентификацию для <see cref="P:Microsoft.AspNetCore.Authorization.AuthorizationPolicy.AuthenticationSchemes"/> и устанавливает результирующий
+            <see cref="T:System.Security.Claims.ClaimsPrincipal"/> в <see cref="P:Microsoft.AspNetCore.Http.HttpContext.User"/>.  Если схемы не заданы, операция не выполняется.
+            </summary>
+            <param name="policy"> <see cref="T:Microsoft.AspNetCore.Authorization.AuthorizationPolicy"/>.</param>
+            <param name="context"> <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/>.</param>
+            <возвращает><see cref="M:Microsoft.AspNetCore.Authentication.AuthenticateResult.Success(Microsoft.AspNetCore.Authentication.AuthenticationTicket)"/> если только все схемы, указанные <see cref="P:Microsoft.AspNetCore.Authorization.AuthorizationPolicy.AuthenticationSchemes"/> fail в authenticate.  </возвращает>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authorization.Policy.IPolicyEvaluaвr.AuthorizeAsync(Microsoft.AspNetCore.Authorization.AuthorizationPolicy,Microsoft.AspNetCore.Authentication.AuthenticateResult,Microsoft.AspNetCore.Http.HttpContext,System.Object)">
+            <summary>
+            Пытается выполнить авторизацию для политики с помощью <see cref="T:Microsoft.AspNetCore.Authorization.IAuthorizationService"/>.
+            </summary>
+            <param name="policy"> <see cref="T:Microsoft.AspNetCore.Authorization.AuthorizationPolicy"/>.</param>
+            <param name="authenticationResult">The result of a call в <see cref="M:Microsoft.AspNetCore.Authorization.Policy.IPolicyEvaluaвr.AuthenticateAsync(Microsoft.AspNetCore.Authorization.AuthorizationPolicy,Microsoft.AspNetCore.Http.HttpContext)"/>.</param>
+            <param name="context"> <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/>.</param>
+            <param name="resource">
+            Необязательный ресурс, с которым должна быть проверена политика.
+            Если ресурс не требуется для оценки политики, можно передать null в качестве значения.
+            </param>
+            <возвращает>Возвращает <see cref="M:Microsoft.AspNetCore.Authorization.Policy.PolicyAuthorizationResult.Success"/> если авторизация успешна.
+            В противном случае возвращает <see cref="M:Microsoft.AspNetCore.Authorization.Policy.PolicyAuthorizationResult.Forbid(Microsoft.AspNetCore.Authorization.AuthorizationFailure)"/> если <see cref="P:Microsoft.AspNetCore.Authentication.AuthenticateResult.Succeeded"/>, otherwise
+            возвращает  <see cref="M:Microsoft.AspNetCore.Authorization.Policy.PolicyAuthorizationResult.Challenge"/></возвращает>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authorization.Policy.PolicyAuthorizationResult">
+            <summary>
+            The result of <see cref="M:Microsoft.AspNetCore.Authorization.Policy.IPolicyEvaluaвr.AuthorizeAsync(Microsoft.AspNetCore.Authorization.AuthorizationPolicy,Microsoft.AspNetCore.Authentication.AuthenticateResult,Microsoft.AspNetCore.Http.HttpContext,System.Object)"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authorization.Policy.PolicyAuthorizationResult.Challenged">
+            <summary>
+            If true, means the callee should challenge and try again.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authorization.Policy.PolicyAuthorizationResult.Forbidden">
+            <summary>
+            Authorization was forbidden.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authorization.Policy.PolicyAuthorizationResult.Succeeded">
+            <summary>
+            Authorization was successful.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authorization.Policy.PolicyAuthorizationResult.AuthorizationFailure">
+            <summary>
+            Contains information about why authorization failed.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authorization.Policy.PolicyAuthorizationResult.Challenge">
+             <summary>
+            Indicates that an unauthenticated user requested access в an endpoint that requires authentication.
+             </summary>
+             <возвращает> <see cref="T:Microsoft.AspNetCore.Authorization.Policy.PolicyAuthorizationResult"/>.</возвращает>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authorization.Policy.PolicyAuthorizationResult.Forbid">
+            <summary>
+            Indicates that the access в a resource was forbidden.
+            </summary>
+            <возвращает> <see cref="T:Microsoft.AspNetCore.Authorization.Policy.PolicyAuthorizationResult"/>.</возвращает>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authorization.Policy.PolicyAuthorizationResult.Forbid(Microsoft.AspNetCore.Authorization.AuthorizationFailure)">
+            <summary>
+            Indicates that the access в a resource was forbidden.
+            </summary>
+            <param name="authorizationFailure">Specеслиies the reason the authorization failed.s</param>
+            <возвращает> <see cref="T:Microsoft.AspNetCore.Authorization.Policy.PolicyAuthorizationResult"/>.</возвращает>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authorization.Policy.PolicyAuthorizationResult.Success">
+            <summary>
+            Indicates a successful authorization.
+            </summary>
+            <возвращает> <see cref="T:Microsoft.AspNetCore.Authorization.Policy.PolicyAuthorizationResult"/>.</возвращает>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authorization.Policy.PolicyEvaluaвr">
+            <summary>
+            Реализация по умолчанию для <see cref="T:Microsoft.AspNetCore.Authorization.Policy.IPolicyEvaluaвr"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authorization.Policy.PolicyEvaluaвr.#cвr(Microsoft.AspNetCore.Authorization.IAuthorizationService)">
+            <summary>
+            Construcвr
+            </summary>
+            <param name="authorization">The authorization service.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authorization.Policy.PolicyEvaluaвr.AuthenticateAsync(Microsoft.AspNetCore.Authorization.AuthorizationPolicy,Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Выполняет аутентификацию для <see cref="P:Microsoft.AspNetCore.Authorization.AuthorizationPolicy.AuthenticationSchemes"/> и устанавливает результирующий
+            <see cref="T:System.Security.Claims.ClaimsPrincipal"/> в <see cref="P:Microsoft.AspNetCore.Http.HttpContext.User"/>.  Если схемы не заданы, операция не выполняется.
+            </summary>
+            <param name="policy"> <see cref="T:Microsoft.AspNetCore.Authorization.AuthorizationPolicy"/>.</param>
+            <param name="context"> <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/>.</param>
+            <возвращает><see cref="M:Microsoft.AspNetCore.Authentication.AuthenticateResult.Success(Microsoft.AspNetCore.Authentication.AuthenticationTicket)"/> если только все схемы, указанные <see cref="P:Microsoft.AspNetCore.Authorization.AuthorizationPolicy.AuthenticationSchemes"/> failed в authenticate.  </возвращает>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authorization.Policy.PolicyEvaluaвr.AuthorizeAsync(Microsoft.AspNetCore.Authorization.AuthorizationPolicy,Microsoft.AspNetCore.Authentication.AuthenticateResult,Microsoft.AspNetCore.Http.HttpContext,System.Object)">
+            <summary>
+            Пытается выполнить авторизацию для политики с помощью <see cref="T:Microsoft.AspNetCore.Authorization.IAuthorizationService"/>.
+            </summary>
+            <param name="policy"> <see cref="T:Microsoft.AspNetCore.Authorization.AuthorizationPolicy"/>.</param>
+            <param name="authenticationResult">The result of a call в <see cref="M:Microsoft.AspNetCore.Authorization.Policy.PolicyEvaluaвr.AuthenticateAsync(Microsoft.AspNetCore.Authorization.AuthorizationPolicy,Microsoft.AspNetCore.Http.HttpContext)"/>.</param>
+            <param name="context"> <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/>.</param>
+            <param name="resource">
+            Необязательный ресурс, с которым должна быть проверена политика.
+            Если ресурс не требуется для оценки политики, можно передать null в качестве значения.
+            </param>
+            <возвращает>Возвращает <see cref="M:Microsoft.AspNetCore.Authorization.Policy.PolicyAuthorizationResult.Success"/> если авторизация успешна.
+            В противном случае возвращает <see cref="M:Microsoft.AspNetCore.Authorization.Policy.PolicyAuthorizationResult.Forbid(Microsoft.AspNetCore.Authorization.AuthorizationFailure)"/> если <see cref="P:Microsoft.AspNetCore.Authentication.AuthenticateResult.Succeeded"/>, otherwise
+            возвращает  <see cref="M:Microsoft.AspNetCore.Authorization.Policy.PolicyAuthorizationResult.Challenge"/></возвращает>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authorization.Policy.Resources.Exception_UnableToFindServices">
+            <summary>Unable в find the required services. Please add all the required services by calling '{0}.{1}' in the application startup code.</summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authorization.Policy.Resources.FormatException_UnableToFindServices(System.Object,System.Object)">
+            <summary>Unable в find the required services. Please add all the required services by calling '{0}.{1}' in the application startup code.</summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authorization.AuthorizationMiddleware">
+            <summary>
+            A middleware that enables authorization capabilities.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.#cвr(Microsoft.AspNetCore.Http.RequestDelegate,Microsoft.AspNetCore.Authorization.IAuthorizationPolicyProvider)">
+            <summary>
+            Initializes a new instance of <see cref="T:Microsoft.AspNetCore.Authorization.AuthorizationMiddleware"/>.
+            </summary>
+            <param name="next">The next middleware in the application middleware pipeline.</param>
+            <param name="policyProvider"> <see cref="T:Microsoft.AspNetCore.Authorization.IAuthorizationPolicyProvider"/>.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.#cвr(Microsoft.AspNetCore.Http.RequestDelegate,Microsoft.AspNetCore.Authorization.IAuthorizationPolicyProvider,System.IServiceProvider,Microsoft.Extensions.Logging.ILogger{Microsoft.AspNetCore.Authorization.AuthorizationMiddleware})">
+            <summary>
+            Initializes a new instance of <see cref="T:Microsoft.AspNetCore.Authorization.AuthorizationMiddleware"/>.
+            </summary>
+            <param name="next">The next middleware in the application middleware pipeline.</param>
+            <param name="policyProvider"> <see cref="T:Microsoft.AspNetCore.Authorization.IAuthorizationPolicyProvider"/>.</param>
+            <param name="services"> <see cref="T:System.IServiceProvider"/>.</param>
+            <param name="logger"> <see cref="T:Microsoft.Extensions.Logging.ILogger"/>.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.#cвr(Microsoft.AspNetCore.Http.RequestDelegate,Microsoft.AspNetCore.Authorization.IAuthorizationPolicyProvider,System.IServiceProvider)">
+            <summary>
+            Initializes a new instance of <see cref="T:Microsoft.AspNetCore.Authorization.AuthorizationMiddleware"/>.
+            </summary>
+            <param name="next">The next middleware in the application middleware pipeline.</param>
+            <param name="policyProvider"> <see cref="T:Microsoft.AspNetCore.Authorization.IAuthorizationPolicyProvider"/>.</param>
+            <param name="services"> <see cref="T:System.IServiceProvider"/>.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Invokes the middleware performing authorization.
+            </summary>
+            <param name="context"> <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/>.</param>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authorization.IAuthorizationMiddlewareResultHandler">
+            <summary>
+            Allow cusвm handling of authorization and handling of the authorization response.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authorization.IAuthorizationMiddlewareResultHandler.HandleAsync(Microsoft.AspNetCore.Http.RequestDelegate,Microsoft.AspNetCore.Http.HttpContext,Microsoft.AspNetCore.Authorization.AuthorizationPolicy,Microsoft.AspNetCore.Authorization.Policy.PolicyAuthorizationResult)">
+            <summary>
+            Evaluates the authorization requirement and processes the authorization result.
+            </summary>
+            <param name="next">
+            The next middleware in the application pipeline. Implementations may not invoke this если the authorization did not succeed.
+            </param>
+            <param name="context"> <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/>.</param>
+            <param name="policy"> <see cref="T:Microsoft.AspNetCore.Authorization.AuthorizationPolicy"/> for the resource.</param>
+            <param name="authorizeResult">The result of authorization.</param>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Builder.AuthorizationAppBuilderExtensions">
+            <summary>
+            Extension methods в add authorization capabilities в an HTTP application pipeline.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Builder.AuthorizationAppBuilderExtensions.UseAuthorization(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            Adds the <see cref="T:Microsoft.AspNetCore.Authorization.AuthorizationMiddleware"/> в the specеслиied <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/>, which enables authorization capabilities.
+            <para>
+            When authorizing a resource that is routed using endpoint routing, this call must appear between the calls в
+            <c>app.UseRouting()</c> and <c>app.UseEndpoints(...)</c> for the middleware в function correctly.
+            </para>
+            </summary>
+            <param name="app"> <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/> в add the middleware в.</param>
+            <возвращает>A reference в <paramref name="app"/> after the operation has completed.</возвращает>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Builder.AuthorizationEndpointConventionBuilderExtensions">
+            <summary>
+            Authorization extension methods for <see cref="T:Microsoft.AspNetCore.Builder.IEndpointConventionBuilder"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Builder.AuthorizationEndpointConventionBuilderExtensions.RequireAuthorization``1(``0)">
+            <summary>
+            Adds the default authorization policy в the endpoint(s).
+            </summary>
+            <param name="builder">The endpoint convention builder.</param>
+            <возвращает>The original convention builder parameter.</возвращает>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Builder.AuthorizationEndpointConventionBuilderExtensions.RequireAuthorization``1(``0,System.String[])">
+            <summary>
+            Adds authorization policies with the specеслиied names в the endpoint(s).
+            </summary>
+            <param name="builder">The endpoint convention builder.</param>
+            <param name="policyNames">A collection of policy names. If empty, the default authorization policy will be used.</param>
+            <возвращает>The original convention builder parameter.</возвращает>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Builder.AuthorizationEndpointConventionBuilderExtensions.RequireAuthorization``1(``0,Microsoft.AspNetCore.Authorization.IAuthorizeData[])">
+            <summary>
+            Adds authorization policies with the specеслиied <see cref="T:Microsoft.AspNetCore.Authorization.IAuthorizeData"/> в the endpoint(s).
+            </summary>
+            <param name="builder">The endpoint convention builder.</param>
+            <param name="authorizeData">
+            A collection of <paramref name="authorizeData"/>. If empty, the default authorization policy will be used.
+            </param>
+            <возвращает>The original convention builder parameter.</возвращает>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Builder.AuthorizationEndpointConventionBuilderExtensions.RequireAuthorization``1(``0,Microsoft.AspNetCore.Authorization.AuthorizationPolicy)">
+            <summary>
+            Adds an authorization policy в the endpoint(s).
+            </summary>
+            <param name="builder">The endpoint convention builder.</param>
+            <param name="policy"> <see cref="T:Microsoft.AspNetCore.Authorization.AuthorizationPolicy"/> policy.</param>
+            <возвращает>The original convention builder parameter.</возвращает>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Builder.AuthorizationEndpointConventionBuilderExtensions.RequireAuthorization``1(``0,System.Action{Microsoft.AspNetCore.Authorization.AuthorizationPolicyBuilder})">
+            <summary>
+            Adds an new authorization policy configured by a callback в the endpoint(s).
+            </summary>
+            <typeparam name="TBuilder"></typeparam>
+            <param name="builder">The endpoint convention builder.</param>
+            <param name="configurePolicy">The callback used в configure the policy.</param>
+            <возвращает>The original convention builder parameter.</возвращает>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Builder.AuthorizationEndpointConventionBuilderExtensions.AllowAnonymous``1(``0)">
+            <summary>
+            Allows anonymous access в the endpoint by adding <see cref="T:Microsoft.AspNetCore.Authorization.AllowAnonymousAttribute" /> в the endpoint metadata. This will bypass
+            all authorization checks for the endpoint including the default authorization policy and fallback authorization policy.
+            </summary>
+            <param name="builder">The endpoint convention builder.</param>
+            <возвращает>The original convention builder parameter.</возвращает>
+        </member>
+        <member name="T:Microsoft.Extensions.DependencyInjection.PolicyServiceCollectionExtensions">
+            <summary>
+            Extension methods for setting up authorization services in an <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection" />.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.PolicyServiceCollectionExtensions.AddAuthorizationBuilder(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds authorization services в the specеслиied <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection" />.
+            </summary>
+            <param name="services"> <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection" /> в add services в.</param>
+            <возвращает> <see cref="T:Microsoft.AspNetCore.Authorization.AuthorizationBuilder"/> so that additional calls can be chained.</возвращает>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.PolicyServiceCollectionExtensions.AddAuthorizationPolicyEvaluaвr(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds the authorization policy evaluaвr service в the specеслиied <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection" />.
+            </summary>
+            <param name="services"> <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection" /> в add services в.</param>
+            <возвращает> <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> so that additional calls can be chained.</возвращает>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.PolicyServiceCollectionExtensions.AddAuthorization(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds authorization policy services в the specеслиied <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection" />.
+            </summary>
+            <param name="services"> <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection" /> в add services в.</param>
+            <возвращает> <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> so that additional calls can be chained.</возвращает>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.PolicyServiceCollectionExtensions.AddAuthorization(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.AspNetCore.Authorization.AuthorizationOptions})">
+            <summary>
+            Adds authorization policy services в the specеслиied <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection" />.
+            </summary>
+            <param name="services"> <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection" /> в add services в.</param>
+            <param name="configure">An action delegate в configure the provided <see cref="T:Microsoft.AspNetCore.Authorization.AuthorizationOptions"/>.</param>
+            <возвращает> <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> so that additional calls can be chained.</возвращает>
+        </member>
+        <member name="T:Microsoft.Extensions.Internal.SecurityHelper">
+            <summary>
+            Helper code used when implementing authentication middleware
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.Internal.SecurityHelper.MergeUserPrincipal(System.Security.Claims.ClaimsPrincipal,System.Security.Claims.ClaimsPrincipal)">
+            <summary>
+            Add all ClaimsIdentities from an additional ClaimPrincipal в the ClaimsPrincipal
+            Merges a new claims principal, placing all new identities first, and eliminating
+            any empty unauthenticated identities from context.User
+            </summary>
+            <param name="existingPrincipal"> <see cref="T:System.Security.Claims.ClaimsPrincipal"/> containing existing <see cref="T:System.Security.Claims.ClaimsIdentity"/>.</param>
+            <param name="additionalPrincipal"> <see cref="T:System.Security.Claims.ClaimsPrincipal"/> containing <see cref="T:System.Security.Claims.ClaimsIdentity"/> в be added.</param>
+        </member>
+    </members>
+</doc>
+
