@@ -1,0 +1,723 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.AspNetCore.Authentication.OAuth</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction">
+            <summary>
+            Инфраструктура для сопоставления данных пользователя из JSON-структуры с утверждениями (claims) в ClaimsIdentity.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction.#ctor(System.String,System.String)">
+            <summary>
+            Создает новое действие по манипулированию утверждениями.
+            </summary>
+            <param name="claimType">Значение, используемое для Claim.Type при создании Claim.</param>
+            <param name="valueType">Значение, используемое для Claim.ValueType при создании Claim.</param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction.ClaimType">
+            <summary>
+            Получает значение, используемое для <see cref="P:System.Security.Claims.Claim.Value"/> при создании Claim.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction.ValueType">
+            <summary>
+            Получает значение, используемое для <see cref="P:System.Security.Claims.Claim.ValueType"/> при создании Claim.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction.Run(System.Text.Json.JsonElement,System.Security.Claims.ClaimsIdentity,System.String)">
+            <summary>
+            Анализирует предоставленный JSON userData, определяет наличие необходимых данных и при необходимости добавляет их
+            как новый Claim в ClaimsIdentity.
+            </summary>
+            <param name="userData">Исходные данные для анализа. Это значение может быть null.</param>
+            <param name="identity">Идентичность, в которую будут добавлены Claims.</param>
+            <param name="issuer">Значение, используемое для Claim.Issuer при создании Claim.</param>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimActionCollection">
+            <summary>
+            Коллекция ClaimActions, используемая при сопоставлении данных пользователя с утверждениями (Claims).
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimActionCollection.Clear">
+            <summary>
+            Удаляет все действия с утверждениями.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimActionCollection.Remove(System.String)">
+            <summary>
+            Удаляет все действия с утверждениями для указанного типа ClaimType.
+            </summary>
+            <param name="claimType">Тип ClaimType, соответствия для которого нужно удалить.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimActionCollection.Add(Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction)">
+            <summary>
+            Добавляет действие с утверждением в коллекцию.
+            </summary>
+            <param name="action">Действие с утверждением, которое нужно добавить.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimActionCollection.GetEnumerator">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.OAuth.Claims.CustomJsonClaimAction">
+            <summary>
+            ClaimAction, который выбирает значение из пользовательских данных JSON, запуская переданный резолвер Func.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OAuth.Claims.CustomJsonClaimAction.#ctor(System.String,System.String,System.Func{System.Text.Json.JsonElement,System.String})">
+            <summary>
+            Создает новый CustomJsonClaimAction.
+            </summary>
+            <param name="claimType">Значение, используемое для Claim.Type при создании Claim.</param>
+            <param name="valueType">Значение, используемое для Claim.ValueType при создании Claim.</param>
+            <param name="resolver">Func, который будет вызван для выбора значения из предоставленных пользовательских данных JSON.</param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OAuth.Claims.CustomJsonClaimAction.Resolver">
+            <summary>
+            Func, который будет вызван для выбора значения из предоставленных пользовательских данных JSON.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OAuth.Claims.CustomJsonClaimAction.Run(System.Text.Json.JsonElement,System.Security.Claims.ClaimsIdentity,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.OAuth.Claims.DeleteClaimAction">
+            <summary>
+            ClaimAction, который удаляет все утверждения из заданного ClaimsIdentity с указанным ClaimType.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OAuth.Claims.DeleteClaimAction.#ctor(System.String)">
+            <summary>
+            Создает новый DeleteClaimAction.
+            </summary>
+            <param name="claimType">Тип ClaimType утверждений, которые нужно удалить.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OAuth.Claims.DeleteClaimAction.Run(System.Text.Json.JsonElement,System.Security.Claims.ClaimsIdentity,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.OAuth.Claims.JsonKeyClaimAction">
+            <summary>
+            ClaimAction, который выбирает значение верхнего уровня из пользовательских данных json по указанному имени ключа и добавляет его как Claim.
+            Не выполняет никаких действий, если ключ не найден или значение пустое.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OAuth.Claims.JsonKeyClaimAction.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Создает новый JsonKeyClaimAction.
+            </summary>
+            <param name="claimType">Значение, используемое для Claim.Type при создании Claim.</param>
+            <param name="valueType">Значение, используемое для Claim.ValueType при создании Claim.</param>
+            <param name="jsonKey">Ключ верхнего уровня, который нужно найти в пользовательских данных json.</param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OAuth.Claims.JsonKeyClaimAction.JsonKey">
+            <summary>
+            Ключ верхнего уровня, который нужно найти в пользовательских данных json.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OAuth.Claims.JsonKeyClaimAction.Run(System.Text.Json.JsonElement,System.Security.Claims.ClaimsIdentity,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.OAuth.Claims.JsonSubKeyClaimAction">
+            <summary>
+            ClaimAction, который выбирает значение второго уровня из пользовательских данных json по указанному ключу верхнего уровня
+            и имени подчиненного ключа второго уровня и добавляет его как Claim.
+            Не выполняет никаких действий, если ключи не найдены или значение пустое.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OAuth.Claims.JsonSubKeyClaimAction.#ctor(System.String,System.String,System.String,System.String)">
+            <summary>
+            Создает новый JsonSubKeyClaimAction.
+            </summary>
+            <param name="claimType">Значение, используемое для Claim.Type при создании Claim.</param>
+            <param name="valueType">Значение, используемое для Claim.ValueType при создании Claim.</param>
+            <param name="jsonKey">Ключ верхнего уровня, который нужно найти в пользовательских данных json.</param>
+            <param name="subKey">Ключ второго уровня, который нужно найти в пользовательских данных json.</param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OAuth.Claims.JsonSubKeyClaimAction.SubKey">
+            <summary>
+            Ключ второго уровня, который нужно найти в пользовательских данных json.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OAuth.Claims.JsonSubKeyClaimAction.Run(System.Text.Json.JsonElement,System.Security.Claims.ClaimsIdentity,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.OAuth.Claims.MapAllClaimsAction">
+            <summary>
+            ClaimAction, который выбирает все значения верхнего уровня из пользовательских данных json и добавляет их как Claims.
+            Исключает дублирующиеся наборы имен и значений.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OAuth.Claims.MapAllClaimsAction.#ctor">
+            <summary>
+            Инициализирует новый экземпляр <see cref="T:Microsoft.AspNetCore.Authentication.OAuth.Claims.MapAllClaimsAction"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OAuth.Claims.MapAllClaimsAction.Run(System.Text.Json.JsonElement,System.Security.Claims.ClaimsIdentity,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.OAuth.OAuthCreatingTicketContext">
+            <summary>
+            Содержит информацию о сеансе входа, а также об идентичности пользователя <see cref="T:System.Security.Claims.ClaimsIdentity"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OAuth.OAuthCreatingTicketContext.#ctor(System.Security.Claims.ClaimsPrincipal,Microsoft.AspNetCore.Authentication.AuthenticationProperties,Microsoft.AspNetCore.Http.HttpContext,Microsoft.AspNetCore.Authentication.AuthenticationScheme,Microsoft.AspNetCore.Authentication.OAuth.OAuthOptions,System.Net.Http.HttpClient,Microsoft.AspNetCore.Authentication.OAuth.OAuthTokenResponse,System.Text.Json.JsonElement)">
+            <summary>
+            Инициализирует новый <see cref="T:Microsoft.AspNetCore.Authentication.OAuth.OAuthCreatingTicketContext"/>.
+            </summary>
+            <param name="principal"><see cref="T:System.Security.Claims.ClaimsPrincipal"/>.</param>
+            <param name="properties"><see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationProperties"/>.</param>
+            <param name="context">HTTP-окружение.</param>
+            <param name="scheme">Схема аутентификации.</param>
+            <param name="options">Параметры, используемые промежуточным ПО аутентификации.</param>
+            <param name="backchannel">HTTP-клиент, используемый промежуточным ПО аутентификации.</param>
+            <param name="tokens">Токены, возвращенные конечной точкой токенов.</param>
+            <param name="user">Сериализованный в JSON пользователь.</param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OAuth.OAuthCreatingTicketContext.User">
+            <summary>
+            Получает сериализованного в JSON пользователя или пустой
+            <see cref="T:System.Text.Json.JsonElement"/>, если он недоступен.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OAuth.OAuthCreatingTicketContext.TokenResponse">
+            <summary>
+            Получает ответ токена, возвращенный службой аутентификации.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OAuth.OAuthCreatingTicketContext.AccessToken">
+            <summary>
+            Получает токен доступа, предоставленный службой аутентификации.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OAuth.OAuthCreatingTicketContext.TokenType">
+            <summary>
+            Получает тип токена доступа, предоставленный службой аутентификации.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OAuth.OAuthCreatingTicketContext.RefreshToken">
+            <summary>
+            Получает токен обновления, предоставленный службой аутентификации.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OAuth.OAuthCreatingTicketContext.ExpiresIn">
+            <summary>
+            Получает время истечения срока действия токена доступа.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OAuth.OAuthCreatingTicketContext.Backchannel">
+            <summary>
+            Получает обратный канал, используемый для связи с провайдером.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OAuth.OAuthCreatingTicketContext.Identity">
+            <summary>
+            Получает основную идентичность, представленную в билете аутентификации.
+            Это свойство возвращает <c>null</c>, когда билет равен <c>null</c>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OAuth.OAuthCreatingTicketContext.RunClaimActions">
+            <summary>
+            Анализирует <see cref="P:Microsoft.AspNetCore.Authentication.OAuth.OAuthCreatingTicketContext.User"/>, определяет наличие необходимых данных и при необходимости добавляет их
+            в <see cref="P:Microsoft.AspNetCore.Authentication.OAuth.OAuthCreatingTicketContext.Identity"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OAuth.OAuthCreatingTicketContext.RunClaimActions(System.Text.Json.JsonElement)">
+            <summary>
+            Анализирует указанные <paramref name="userData"/>, определяет наличие необходимых данных и при необходимости добавляет их
+            в <see cref="P:Microsoft.AspNetCore.Authentication.OAuth.OAuthCreatingTicketContext.Identity"/>.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.OAuth.OAuthEvents">
+            <summary>
+            Реализация по умолчанию.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OAuth.OAuthEvents.OnCreatingTicket">
+            <summary>
+            Получает или задает функцию, которая вызывается при вызове метода CreatingTicket.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OAuth.OAuthEvents.OnRedirectToAuthorizationEndpoint">
+            <summary>
+            Получает или задает делегат, который вызывается при вызове метода RedirectToAuthorizationEndpoint.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OAuth.OAuthEvents.CreatingTicket(Microsoft.AspNetCore.Authentication.OAuth.OAuthCreatingTicketContext)">
+            <summary>
+            Вызывается после того, как провайдер успешно аутентифицировал пользователя.
+            </summary>
+            <param name="context">Содержит информацию о сеансе входа, а также об идентичности пользователя <see cref="T:System.Security.Claims.ClaimsIdentity"/>.</param>
+            <returns><see cref="T:System.Threading.Tasks.Task"/>, представляющий завершенную операцию.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OAuth.OAuthEvents.RedirectToAuthorizationEndpoint(Microsoft.AspNetCore.Authentication.RedirectContext{Microsoft.AspNetCore.Authentication.OAuth.OAuthOptions})">
+            <summary>
+            Вызывается, когда Challenge вызывает перенаправление на конечную точку авторизации в обработчике OAuth.
+            </summary>
+            <param name="context">Содержит URI перенаправления и <see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationProperties"/> challenge.</param>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.OAuth.OAuthChallengeProperties">
+            <summary>
+            <see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationProperties"/> для OAuth challenge.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Authentication.OAuth.OAuthChallengeProperties.ScopeKey">
+            <summary>
+            Ключ параметра для аргумента "scope", используемого для запроса challenge.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OAuth.OAuthChallengeProperties.#ctor">
+            <summary>
+            Инициализирует новый экземпляр <see cref="T:Microsoft.AspNetCore.Authentication.OAuth.OAuthChallengeProperties"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OAuth.OAuthChallengeProperties.#ctor(System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Инициализирует новый экземпляр <see cref="T:Microsoft.AspNetCore.Authentication.OAuth.OAuthChallengeProperties" />.
+            </summary>
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OAuth.OAuthChallengeProperties.#ctor(System.Collections.Generic.IDictionary{System.String,System.String},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Инициализирует новый экземпляр <see cref="T:Microsoft.AspNetCore.Authentication.OAuth.OAuthChallengeProperties" />.
+            </summary>
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OAuth.OAuthChallengeProperties.Scope">
+            <summary>
+            Значение параметра "scope", используемое для запроса challenge.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OAuth.OAuthChallengeProperties.SetScope(System.String[])">
+            <summary>
+            Устанавливает значение параметра "scope".
+            </summary>
+            <param name="scopes">Список областей (scopes).</param>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.OAuth.OAuthCodeExchangeContext">
+            <summary>
+            Содержит информацию, используемую для выполнения обмена кодом.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OAuth.OAuthCodeExchangeContext.#ctor(Microsoft.AspNetCore.Authentication.AuthenticationProperties,System.String,System.String)">
+            <summary>
+            Инициализирует новый <see cref="T:Microsoft.AspNetCore.Authentication.OAuth.OAuthCodeExchangeContext"/>.
+            </summary>
+            <param name="properties"><see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationProperties"/>.</param>
+            <param name="code">Код, возвращенный конечной точкой авторизации.</param>
+            <param name="redirectUri">URI перенаправления, использованный в запросе авторизации.</param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OAuth.OAuthCodeExchangeContext.Properties">
+            <summary>
+            Состояние для потока аутентификации.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OAuth.OAuthCodeExchangeContext.Code">
+            <summary>
+            Код, возвращенный конечной точкой авторизации.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OAuth.OAuthCodeExchangeContext.RedirectUri">
+            <summary>
+            URI перенаправления, использованный в запросе авторизации.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.OAuth.OAuthConstants">
+            <summary>
+            Константы, используемые в протоколе OAuth.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Authentication.OAuth.OAuthConstants.CodeVerifierKey">
+            <summary>
+            code_verifier, определено в <see href="https://tools.ietf.org/html/rfc7636"/>.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Authentication.OAuth.OAuthConstants.CodeChallengeKey">
+            <summary>
+            code_challenge, определено в <see href="https://tools.ietf.org/html/rfc7636"/>.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Authentication.OAuth.OAuthConstants.CodeChallengeMethodKey">
+            <summary>
+            code_challenge_method, определено в <see href="https://tools.ietf.org/html/rfc7636"/>.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Authentication.OAuth.OAuthConstants.CodeChallengeMethodS256">
+            <summary>
+            S256, определено в <see href="https://tools.ietf.org/html/rfc7636"/>.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.OAuth.OAuthDefaults">
+            <summary>
+            Значения по умолчанию для аутентификации OAuth.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Authentication.OAuth.OAuthDefaults.DisplayName">
+            <summary>
+            Отображаемое имя по умолчанию для аутентификации OAuth.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.OAuth.OAuthHandler`1">
+            <summary>
+            Обработчик аутентификации, поддерживающий OAuth.
+            </summary>
+            <typeparam name="TOptions">Тип параметров.</typeparam>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OAuth.OAuthHandler`1.Backchannel">
+            <summary>
+            Получает экземпляр <see cref="T:System.Net.Http.HttpClient"/>, используемый для связи с удаленным провайдером аутентификации.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OAuth.OAuthHandler`1.Events">
+            <summary>
+            Обработчик вызывает методы событий, которые дают приложению контроль в определенных точках во время обработки.
+            Если он не предоставлен, поставляется экземпляр по умолчанию, который ничего не делает при вызове методов.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OAuth.OAuthHandler`1.#ctor(Microsoft.Extensions.Options.IOptionsMonitor{`0},Microsoft.Extensions.Logging.ILoggerFactory,System.Text.Encodings.Web.UrlEncoder,Microsoft.AspNetCore.Authentication.ISystemClock)">
+            <summary>
+            Инициализирует новый экземпляр <see cref="T:Microsoft.AspNetCore.Authentication.OAuth.OAuthHandler`1"/>.
+            </summary>
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OAuth.OAuthHandler`1.#ctor(Microsoft.Extensions.Options.IOptionsMonitor{`0},Microsoft.Extensions.Logging.ILoggerFactory,System.Text.Encodings.Web.UrlEncoder)">
+            <summary>
+            Инициализирует новый экземпляр <see cref="T:Microsoft.AspNetCore.Authentication.OAuth.OAuthHandler`1"/>.
+            </summary>
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OAuth.OAuthHandler`1.CreateEventsAsync">
+            <summary>
+            Создает новый экземпляр экземпляра событий.
+            </summary>
+            <returns>Новый экземпляр экземпляра событий.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OAuth.OAuthHandler`1.HandleRemoteAuthenticateAsync">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OAuth.OAuthHandler`1.ExchangeCodeAsync(Microsoft.AspNetCore.Authentication.OAuth.OAuthCodeExchangeContext)">
+            <summary>
+            Обменивает код авторизации на токен авторизации от удаленного провайдера.
+            </summary>
+            <param name="context"><see cref="T:Microsoft.AspNetCore.Authentication.OAuth.OAuthCodeExchangeContext"/>.</param>
+            <returns>Ответ <see cref="T:Microsoft.AspNetCore.Authentication.OAuth.OAuthTokenResponse"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OAuth.OAuthHandler`1.CreateTicketAsync(System.Security.Claims.ClaimsIdentity,Microsoft.AspNetCore.Authentication.AuthenticationProperties,Microsoft.AspNetCore.Authentication.OAuth.OAuthTokenResponse)">
+            <summary>
+            Создает <see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationTicket"/> из указанных <paramref name="tokens"/>.
+            </summary>
+            <param name="identity"><see cref="T:System.Security.Claims.ClaimsIdentity"/>.</param>
+            <param name="properties"><see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationProperties"/>.</param>
+            <param name="tokens"><see cref="T:Microsoft.AspNetCore.Authentication.OAuth.OAuthTokenResponse"/>.</param>
+            <returns><see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationTicket"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OAuth.OAuthHandler`1.HandleChallengeAsync(Microsoft.AspNetCore.Authentication.AuthenticationProperties)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OAuth.OAuthHandler`1.BuildChallengeUrl(Microsoft.AspNetCore.Authentication.AuthenticationProperties,System.String)">
+            <summary>
+            Формирует URL challenge OAuth.
+            </summary>
+            <param name="properties"><see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationProperties"/>.</param>
+            <param name="redirectUri">URL, на который нужно перенаправить после завершения challenge.</param>
+            <returns>URL challenge.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OAuth.OAuthHandler`1.FormatScope(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Форматирует список областей OAuth.
+            </summary>
+            <param name="scopes">Список областей (scopes).</param>
+            <returns>Отформатированные области.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OAuth.OAuthHandler`1.FormatScope">
+            <summary>
+            Форматирует свойство <see cref="P:Microsoft.AspNetCore.Authentication.OAuth.OAuthOptions.Scope"/>.
+            </summary>
+            <returns>Отформатированные области.</returns>
+            <remarks>Подклассы должны переопределять <see cref="M:Microsoft.AspNetCore.Authentication.OAuth.OAuthHandler`1.FormatScope(System.Collections.Generic.IEnumerable{System.String})"/>.</remarks>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.OAuth.OAuthOptions">
+            <summary>
+            Параметры конфигурации OAuth.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OAuth.OAuthOptions.#ctor">
+            <summary>
+            Инициализирует новый экземпляр <see cref="T:Microsoft.AspNetCore.Authentication.OAuth.OAuthOptions"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OAuth.OAuthOptions.Validate">
+            <summary>
+            Проверяет корректность параметров. Должен выбрасывать исключение, если что-то не так.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OAuth.OAuthOptions.ClientId">
+            <summary>
+            Получает или задает идентификатор клиента, назначенный провайдером.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OAuth.OAuthOptions.ClientSecret">
+            <summary>
+            Получает или задает секрет клиента, назначенный провайдером.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OAuth.OAuthOptions.AuthorizationEndpoint">
+            <summary>
+            Получает или задает URI, на который клиент будет перенаправлен для аутентификации.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OAuth.OAuthOptions.TokenEndpoint">
+            <summary>
+            Получает или задает URI, к которому промежуточное ПО будет обращаться для обмена токена OAuth.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OAuth.OAuthOptions.UserInformationEndpoint">
+            <summary>
+            Получает или задает URI, к которому промежуточное ПО будет обращаться для получения информации о пользователе.
+            Это значение не используется в реализации по умолчанию, оно предназначено для использования в пользовательских реализациях
+            <see cref="P:Microsoft.AspNetCore.Authentication.OAuth.OAuthEvents.OnCreatingTicket" />.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OAuth.OAuthOptions.Events">
+            <summary>
+            Получает или задает <see cref="T:Microsoft.AspNetCore.Authentication.OAuth.OAuthEvents"/>, используемые для обработки событий аутентификации.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OAuth.OAuthOptions.ClaimActions">
+            <summary>
+            Коллекция действий с утверждениями, используемых для выбора значений из пользовательских данных json и создания Claims.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OAuth.OAuthOptions.Scope">
+            <summary>
+            Получает список разрешений, которые необходимо запросить.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OAuth.OAuthOptions.StateDataFormat">
+            <summary>
+            Получает или задает тип, используемый для защиты данных, обрабатываемых промежуточным ПО.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OAuth.OAuthOptions.UsePkce">
+            <summary>
+            Включает или отключает использование стандарта Proof Key for Code Exchange (PKCE). См. <see href="https://tools.ietf.org/html/rfc7636"/>.
+            Значение по умолчанию — `false`, но производные обработчики должны включать эту опцию, если их провайдер поддерживает её.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.OAuth.OAuthTokenResponse">
+            <summary>
+            Ответ от провайдера на запрос токена OAuth.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OAuth.OAuthTokenResponse.#ctor(System.Text.Json.JsonDocument)">
+            <summary>
+            Инициализирует новый экземпляр <see cref="T:Microsoft.AspNetCore.Authentication.OAuth.OAuthTokenResponse"/>.
+            </summary>
+            <param name="response">Полученная полезная нагрузка JSON.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OAuth.OAuthTokenResponse.Success(System.Text.Json.JsonDocument)">
+            <summary>
+            Создает успешный <see cref="T:Microsoft.AspNetCore.Authentication.OAuth.OAuthTokenResponse"/>.
+            </summary>
+            <param name="response">Полученная полезная нагрузка JSON.</param>
+            <returns>Экземпляр <see cref="T:Microsoft.AspNetCore.Authentication.OAuth.OAuthTokenResponse"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OAuth.OAuthTokenResponse.Failed(System.Exception)">
+            <summary>
+            Создает неудачный <see cref="T:Microsoft.AspNetCore.Authentication.OAuth.OAuthTokenResponse"/>.
+            </summary>
+            <param name="error">Ошибка, связанная с неудачей.</param>
+            <returns>Экземпляр <see cref="T:Microsoft.AspNetCore.Authentication.OAuth.OAuthTokenResponse"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OAuth.OAuthTokenResponse.Dispose">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OAuth.OAuthTokenResponse.Response">
+            <summary>
+            Получает или задает полученную полезную нагрузку JSON.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OAuth.OAuthTokenResponse.AccessToken">
+            <summary>
+            Получает или задает токен доступа, выданный провайдером OAuth.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OAuth.OAuthTokenResponse.TokenType">
+            <summary>
+            Получает или задает тип токена.
+            </summary>
+            <remarks>Обычно строка "bearer".</remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OAuth.OAuthTokenResponse.RefreshToken">
+            <summary>
+            Получает или задает токен обновления, который приложения могут использовать для получения другого токена доступа, если токены могут истекать.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OAuth.OAuthTokenResponse.ExpiresIn">
+            <summary>
+            Получает или задает срок действия токена в секундах.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OAuth.OAuthTokenResponse.Error">
+            <summary>
+            Исключение в случае, если ответ был неудачным.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OAuth.Resources.Exception_OptionMustBeProvided">
+            <summary>Необходимо предоставить параметр '{0}'.</summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.OAuth.Resources.FormatException_OptionMustBeProvided(System.Object)">
+            <summary>Необходимо предоставить параметр '{0}'.</summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.OAuth.Resources.Exception_ValidatorHandlerMismatch">
+            <summary>ICertificateValidator не может быть указан одновременно с HttpMessageHandler, если только это не WebRequestHandler.</summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions">
+            <summary>
+            Методы расширения для <see cref="T:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimActionCollection"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions.MapJsonKey(Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimActionCollection,System.String,System.String)">
+            <summary>
+            Выбирает значение верхнего уровня из пользовательских данных json по указанному имени ключа и добавляет его как Claim.
+            Не выполняет никаких действий, если ключ не найден или значение пустое.
+            </summary>
+            <param name="collection"><see cref="T:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimActionCollection"/>.</param>
+            <param name="claimType">Значение, используемое для Claim.Type при создании Claim.</param>
+            <param name="jsonKey">Ключ верхнего уровня, который нужно найти в пользовательских данных json.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions.MapJsonKey(Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimActionCollection,System.String,System.String,System.String)">
+            <summary>
+            Выбирает значение верхнего уровня из пользовательских данных json по указанному имени ключа и добавляет его как Claim.
+            Не выполняет никаких действий, если ключ не найден или значение пустое.
+            </summary>
+            <param name="collection"><see cref="T:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimActionCollection"/>.</param>
+            <param name="claimType">Значение, используемое для Claim.Type при создании Claim.</param>
+            <param name="jsonKey">Ключ верхнего уровня, который нужно найти в пользовательских данных json.</param>
+            <param name="valueType">Значение, используемое для Claim.ValueType при создании Claim.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions.MapJsonSubKey(Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimActionCollection,System.String,System.String,System.String)">
+            <summary>
+            Выбирает значение второго уровня из пользовательских данных json по указанному ключу верхнего уровня и имени подчиненного ключа второго уровня и добавляет его как Claim.
+            Не выполняет никаких действий, если ключи не найдены или значение пустое.
+            </summary>
+            <param name="collection"><see cref="T:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimActionCollection"/>.</param>
+            <param name="claimType">Значение, используемое для Claim.Type при создании Claim.</param>
+            <param name="jsonKey">Ключ верхнего уровня, который нужно найти в пользовательских данных json.</param>
+            <param name="subKey">Ключ второго уровня, который нужно найти в пользовательских данных json.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions.MapJsonSubKey(Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimActionCollection,System.String,System.String,System.String,System.String)">
+            <summary>
+            Выбирает значение второго уровня из пользовательских данных json по указанному ключу верхнего уровня и имени подчиненного ключа второго уровня и добавляет его как Claim.
+            Не выполняет никаких действий, если ключи не найдены или значение пустое.
+            </summary>
+            <param name="collection"><see cref="T:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimActionCollection"/>.</param>
+            <param name="claimType">Значение, используемое для Claim.Type при создании Claim.</param>
+            <param name="jsonKey">Ключ верхнего уровня, который нужно найти в пользовательских данных json.</param>
+            <param name="subKey">Ключ второго уровня, который нужно найти в пользовательских данных json.</param>
+            <param name="valueType">Значение, используемое для Claim.ValueType при создании Claim.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions.MapCustomJson(Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimActionCollection,System.String,System.Func{System.Text.Json.JsonElement,System.String})">
+            <summary>
+            Запускает указанный резолвер для выбора значения из пользовательских данных json для добавления в качестве утверждения.
+            Не выполняет никаких действий, если возвращенное значение пустое.
+            </summary>
+            <param name="collection"><see cref="T:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimActionCollection"/>.</param>
+            <param name="claimType">Значение, используемое для Claim.Type при создании Claim.</param>
+            <param name="resolver">Func, который будет вызван для выбора значения из предоставленных пользовательских данных json.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions.MapCustomJson(Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimActionCollection,System.String,System.String,System.Func{System.Text.Json.JsonElement,System.String})">
+            <summary>
+            Запускает указанный резолвер для выбора значения из пользовательских данных json для добавления в качестве утверждения.
+            Не выполняет никаких действий, если возвращенное значение пустое.
+            </summary>
+            <param name="collection"><see cref="T:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimActionCollection"/>.</param>
+            <param name="claimType">Значение, используемое для Claim.Type при создании Claim.</param>
+            <param name="valueType">Значение, используемое для Claim.ValueType при создании Claim.</param>
+            <param name="resolver">Func, который будет вызван для выбора значения из предоставленных пользовательских данных json.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions.MapAll(Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimActionCollection)">
+            <summary>
+            Очищает любые текущие ClaimsActions и сопоставляет все значения из пользовательских данных json как утверждения, исключая дубликаты.
+            </summary>
+            <param name="collection"><see cref="T:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimActionCollection"/>.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions.MapAllExcept(Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimActionCollection,System.String[])">
+            <summary>
+            Очищает любые текущие ClaimsActions и сопоставляет все значения из пользовательских данных json как утверждения, исключая указанные типы.
+            </summary>
+            <param name="collection"><see cref="T:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimActionCollection"/>.</param>
+            <param name="exclusions">Типы, которые нужно исключить.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions.DeleteClaim(Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimActionCollection,System.String)">
+            <summary>
+            Удаляет все утверждения из заданного ClaimsIdentity с указанным ClaimType.
+            </summary>
+            <param name="collection"><see cref="T:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimActionCollection"/>.</param>
+            <param name="claimType">Тип утверждения, который нужно удалить.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions.DeleteClaims(Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimActionCollection,System.String[])">
+            <summary>
+            Удаляет все утверждения из ClaimsIdentity с указанными claimTypes.
+            </summary>
+            <param name="collection"><see cref="T:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimActionCollection"/>.</param>
+            <param name="claimTypes">Типы утверждений, которые нужно удалить.</param>
+        </member>
+        <member name="T:Microsoft.Extensions.DependencyInjection.OAuthExtensions">
+            <summary>
+            Методы расширения для добавления аутентификации OAuth.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.OAuthExtensions.AddOAuth(Microsoft.AspNetCore.Authentication.AuthenticationBuilder,System.String,System.Action{Microsoft.AspNetCore.Authentication.OAuth.OAuthOptions})">
+            <summary>
+            Добавляет аутентификацию на основе OAuth 2.0 в <see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationBuilder"/> с использованием указанной схемы аутентификации.
+            </summary>
+            <param name="builder"><see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationBuilder"/>.</param>
+            <param name="authenticationScheme">Схема аутентификации.</param>
+            <param name="configureOptions">Делегат для настройки <see cref="T:Microsoft.AspNetCore.Authentication.OAuth.OAuthOptions"/>.</param>
+            <returns>Ссылка на <paramref name="builder"/> после завершения операции.</returns>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.OAuthExtensions.AddOAuth(Microsoft.AspNetCore.Authentication.AuthenticationBuilder,System.String,System.String,System.Action{Microsoft.AspNetCore.Authentication.OAuth.OAuthOptions})">
+            <summary>
+            Добавляет аутентификацию на основе OAuth 2.0 в <see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationBuilder"/> с использованием указанной схемы аутентификации.
+            </summary>
+            <param name="builder"><see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationBuilder"/>.</param>
+            <param name="authenticationScheme">Схема аутентификации.</param>
+            <param name="displayName">Отображаемое имя для обработчика аутентификации.</param>
+            <param name="configureOptions">Делегат для настройки <see cref="T:Microsoft.AspNetCore.Authentication.OAuth.OAuthOptions"/>.</param>
+            <returns>Ссылка на <paramref name="builder"/> после завершения операции.</returns>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.OAuthExtensions.AddOAuth``2(Microsoft.AspNetCore.Authentication.AuthenticationBuilder,System.String,System.Action{``0})">
+            <summary>
+            Добавляет аутентификацию на основе OAuth 2.0 в <see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationBuilder"/> с использованием указанной схемы аутентификации.
+            </summary>
+            <param name="builder"><see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationBuilder"/>.</param>
+            <param name="authenticationScheme">Схема аутентификации.</param>
+            <param name="configureOptions">Делегат для настройки специфичных для обработчика параметров.</param>
+            <returns>Ссылка на <paramref name="builder"/> после завершения операции.</returns>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.OAuthExtensions.AddOAuth``2(Microsoft.AspNetCore.Authentication.AuthenticationBuilder,System.String,System.String,System.Action{``0})">
+            <summary>
+            Добавляет аутентификацию на основе OAuth 2.0 в <see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationBuilder"/> с использованием указанной схемы аутентификации.
+            </summary>
+            <param name="builder"><see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationBuilder"/>.</param>
+            <param name="authenticationScheme">Схема аутентификации.</param>
+            <param name="displayName">Отображаемое имя для обработчика аутентификации.</param>
+            <param name="configureOptions">Делегат для настройки специфичных для обработчика параметров.</param>
+            <returns>Ссылка на <paramref name="builder"/> после завершения операции.</returns>
+        </member>
+        <member name="T:Microsoft.Extensions.DependencyInjection.OAuthPostConfigureOptions`2">
+            <summary>
+            Используется для установки значений по умолчанию для OAuthOptions.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.OAuthPostConfigureOptions`2.#ctor(Microsoft.AspNetCore.DataProtection.IDataProtectionProvider)">
+            <summary>
+            Инициализирует <see cref="T:Microsoft.Extensions.DependencyInjection.OAuthPostConfigureOptions`2"/>.
+            </summary>
+            <param name="dataProtection"><see cref="T:Microsoft.AspNetCore.DataProtection.IDataProtectionProvider"/>.</param>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.OAuthPostConfigureOptions`2.PostConfigure(System.String,`0)">
+            <inheritdoc />
+        </member>
+    </members>
+</doc>
