@@ -1,0 +1,710 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.AspNetCore.Authentication.Cookies</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults">
+            <summary>
+            Значения по умолчанию, связанные с обработчиком аутентификации на основе файлов cookie
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme">
+            <summary>
+            Значение по умолчанию, используемое для CookieAuthenticationOptions.AuthenticationScheme
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.CookiePrefix">
+            <summary>
+            Префикс, используемый для предоставления значения по умолчанию CookieAuthenticationOptions.CookieName
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.LoginPath">
+            <summary>
+            Значение по умолчанию, используемое CookieAuthenticationMiddleware для
+            CookieAuthenticationOptions.LoginPath
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.LogoutPath">
+            <summary>
+            Значение по умолчанию, используемое CookieAuthenticationMiddleware для
+            CookieAuthenticationOptions.LogoutPath
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AccessDeniedPath">
+            <summary>
+            Значение по умолчанию, используемое CookieAuthenticationMiddleware для
+            CookieAuthenticationOptions.AccessDeniedPath
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.ReturnUrlParameter">
+            <summary>
+            Значение по умолчанию параметра CookieAuthenticationOptions.ReturnUrlParameter
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationEvents">
+            <summary>
+            Позволяет подписываться на события, возникающие во время аутентификации с помощью файлов cookie.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationEvents.OnValidatePrincipal">
+            <summary>
+            Вызывается для проверки принципа (principal).
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationEvents.OnCheckSlidingExpiration">
+            <summary>
+            Вызывается для проверки необходимости обновления файла cookie.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationEvents.OnSigningIn">
+            <summary>
+            Вызывается при входе в систему.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationEvents.OnSignedIn">
+            <summary>
+            Вызывается после завершения входа в систему.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationEvents.OnSigningOut">
+            <summary>
+            Вызывается при выходе из системы.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationEvents.OnRedirectToLogin">
+            <summary>
+            Вызывается, когда клиент должен быть перенаправлен на URL входа.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationEvents.OnRedirectToAccessDenied">
+            <summary>
+            Вызывается, когда клиент должен быть перенаправлен на URL отказа в доступе.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationEvents.OnRedirectToLogout">
+            <summary>
+            Вызывается, когда клиент должен быть перенаправлен на выход из системы.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationEvents.OnRedirectToReturnUrl">
+            <summary>
+            Вызывается, когда клиент должен быть перенаправлен после выхода из системы.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationEvents.ValidatePrincipal(Microsoft.AspNetCore.Authentication.Cookies.CookieValidatePrincipalContext)">
+            <summary>
+            Вызывается для проверки принципа (principal).
+            </summary>
+            <param name="context"><see cref="T:Microsoft.AspNetCore.Authentication.Cookies.CookieValidatePrincipalContext"/>.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationEvents.CheckSlidingExpiration(Microsoft.AspNetCore.Authentication.Cookies.CookieSlidingExpirationContext)">
+            <summary>
+            Вызывается для проверки необходимости обновления файла cookie.
+            </summary>
+            <param name="context"><see cref="T:Microsoft.AspNetCore.Authentication.Cookies.CookieSlidingExpirationContext"/>.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationEvents.SigningIn(Microsoft.AspNetCore.Authentication.Cookies.CookieSigningInContext)">
+            <summary>
+            Вызывается во время входа в систему.
+            </summary>
+            <param name="context"><see cref="T:Microsoft.AspNetCore.Authentication.Cookies.CookieSigningInContext"/>.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationEvents.SignedIn(Microsoft.AspNetCore.Authentication.Cookies.CookieSignedInContext)">
+            <summary>
+            Вызывается после завершения входа в систему.
+            </summary>
+            <param name="context"><see cref="T:Microsoft.AspNetCore.Authentication.Cookies.CookieSignedInContext"/>.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationEvents.SigningOut(Microsoft.AspNetCore.Authentication.Cookies.CookieSigningOutContext)">
+            <summary>
+            Вызывается при выходе из системы.
+            </summary>
+            <param name="context"><see cref="T:Microsoft.AspNetCore.Authentication.Cookies.CookieSigningOutContext"/>.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationEvents.RedirectToLogout(Microsoft.AspNetCore.Authentication.RedirectContext{Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions})">
+            <summary>
+            Вызывается, когда клиент перенаправляется на URL выхода.
+            </summary>
+            <param name="context"><see cref="T:Microsoft.AspNetCore.Authentication.RedirectContext`1"/>.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationEvents.RedirectToLogin(Microsoft.AspNetCore.Authentication.RedirectContext{Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions})">
+            <summary>
+            Вызывается, когда клиент перенаправляется на URL входа.
+            </summary>
+            <param name="context"><see cref="T:Microsoft.AspNetCore.Authentication.RedirectContext`1"/>.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationEvents.RedirectToReturnUrl(Microsoft.AspNetCore.Authentication.RedirectContext{Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions})">
+            <summary>
+            Вызывается, когда клиент перенаправляется после выхода.
+            </summary>
+            <param name="context"><see cref="T:Microsoft.AspNetCore.Authentication.RedirectContext`1"/>.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationEvents.RedirectToAccessDenied(Microsoft.AspNetCore.Authentication.RedirectContext{Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions})">
+            <summary>
+            Вызывается, когда клиент перенаправляется на URL отказа в доступе.
+            </summary>
+            <param name="context"><see cref="T:Microsoft.AspNetCore.Authentication.RedirectContext`1"/>.</param>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler">
+            <summary>
+            Реализация обработчика аутентификации на основе файлов cookie.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler.#ctor(Microsoft.Extensions.Options.IOptionsMonitor{Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions},Microsoft.Extensions.Logging.ILoggerFactory,System.Text.Encodings.Web.UrlEncoder,Microsoft.AspNetCore.Authentication.ISystemClock)">
+            <summary>
+            Инициализирует новый экземпляр <see cref="T:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler"/>.
+            </summary>
+            <param name="options">Модуль доступа к <see cref="T:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions"/>.</param>
+            <param name="logger"><see cref="T:Microsoft.Extensions.Logging.ILoggerFactory"/>.</param>
+            <param name="encoder"><see cref="T:System.Text.Encodings.Web.UrlEncoder"/>.</param>
+            <param name="clock"><see cref="T:Microsoft.AspNetCore.Authentication.ISystemClock"/>.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler.#ctor(Microsoft.Extensions.Options.IOptionsMonitor{Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions},Microsoft.Extensions.Logging.ILoggerFactory,System.Text.Encodings.Web.UrlEncoder)">
+            <summary>
+            Инициализирует новый экземпляр <see cref="T:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler"/>.
+            </summary>
+            <param name="options">Модуль доступа к <see cref="T:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions"/>.</param>
+            <param name="logger"><see cref="T:Microsoft.Extensions.Logging.ILoggerFactory"/>.</param>
+            <param name="encoder"><see cref="T:System.Text.Encodings.Web.UrlEncoder"/>.</param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler.Events">
+            <summary>
+            Обработчик вызывает методы событий, которые предоставляют приложению контроль в определенных точках обработки.
+            Если не предоставлено, поставляется экземпляр по умолчанию, который ничего не делает при вызове методов.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler.InitializeHandlerAsync">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler.CreateEventsAsync">
+            <summary>
+            Создает новый экземпляр событий.
+            </summary>
+            <returns>Новый экземпляр событий.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler.HandleAuthenticateAsync">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler.FinishResponseAsync">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler.HandleSignInAsync(System.Security.Claims.ClaimsPrincipal,Microsoft.AspNetCore.Authentication.AuthenticationProperties)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler.HandleSignOutAsync(Microsoft.AspNetCore.Authentication.AuthenticationProperties)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler.HandleForbiddenAsync(Microsoft.AspNetCore.Authentication.AuthenticationProperties)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationHandler.HandleChallengeAsync(Microsoft.AspNetCore.Authentication.AuthenticationProperties)">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions">
+            <summary>
+            Параметры конфигурации для <see cref="T:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions.#ctor">
+            <summary>
+            Создает экземпляр параметров, инициализированный значениями по умолчанию
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions.Cookie">
+            <summary>
+            Определяет параметры, используемые для создания файла cookie.
+            </summary>
+            <remarks>
+            <list type="bullet">
+            <item><description>Значение по умолчанию для свойства cookie <see cref="P:Microsoft.AspNetCore.Http.CookieBuilder.Name"/> — <c>.AspNetCore.Cookies</c>.
+            Это значение следует изменить, если вы измените имя <c>AuthenticationScheme</c>, особенно если ваша
+            система использует обработчик аутентификации файлов cookie несколько раз.</description></item>
+            <item><description><see cref="P:Microsoft.AspNetCore.Http.CookieBuilder.SameSite"/> определяет, должен ли браузер разрешать прикрепление файла cookie к односайтовым или межсайтовым запросам.
+            По умолчанию установлено значение <c>Lax</c>, что означает, что файл cookie разрешено прикреплять только к межсайтовым запросам с использованием безопасных HTTP-методов и односайтовым запросам.</description></item>
+            <item><description><see cref="P:Microsoft.AspNetCore.Http.CookieBuilder.HttpOnly"/> определяет, должен ли браузер разрешать доступ к файлу cookie через клиентский JavaScript.
+            По умолчанию установлено значение <c>true</c>, что означает, что файл cookie будет передаваться только HTTP-запросам и не будет доступен для JavaScript на странице.</description></item>
+            <item><description><see cref="P:Microsoft.AspNetCore.Http.CookieBuilder.Expiration"/> в настоящее время игнорируется. Используйте <see cref="P:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions.ExpireTimeSpan"/> для управления временем жизни аутентификации файлов cookie.</description></item>
+            <item><description><see cref="P:Microsoft.AspNetCore.Http.CookieBuilder.SecurePolicy"/> по умолчанию имеет значение <see cref="F:Microsoft.AspNetCore.Http.CookieSecurePolicy.SameAsRequest"/>.</description></item>
+            </list>
+            </remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions.DataProtectionProvider">
+            <summary>
+            Если установлено, это будет использоваться CookieAuthenticationHandler для защиты данных.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions.SlidingExpiration">
+            <summary>
+            SlidingExpiration установлен в true, чтобы указать обработчику повторно выдавать новый файл cookie с новым
+            временем истечения каждый раз, когда он обрабатывает запрос, который находится более чем на половине окна истечения.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions.LoginPath">
+            <summary>
+            Свойство LoginPath используется обработчиком для целевого перенаправления при обработке ChallengeAsync.
+            Текущий URL добавляется к LoginPath как параметр строки запроса с именем ReturnUrlParameter.
+            Как только запрос к LoginPath предоставляет новую идентичность SignIn, значение ReturnUrlParameter используется для перенаправления
+            браузера обратно на исходный URL.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions.LogoutPath">
+            <summary>
+            Если указан LogoutPath, то запрос к этому пути будет перенаправляться на основе ReturnUrlParameter.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions.AccessDeniedPath">
+            <summary>
+            Свойство AccessDeniedPath используется обработчиком для целевого перенаправления при обработке ForbidAsync.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions.ReturnUrlParameter">
+            <summary>
+            ReturnUrlParameter определяет имя параметра строки запроса, который добавляется обработчиком
+            во время Challenge. Это также параметр строки запроса, который ищется при поступлении запроса на путь входа
+            или выхода, чтобы вернуться к исходному URL после выполнения действия.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions.Events">
+            <summary>
+            Provider может быть назначен экземпляру объекта, созданного приложением во время запуска. Обработчик
+            вызывает методы провайдера, которые предоставляют приложению контроль в определенных точках обработки.
+            Если не предоставлено, поставляется экземпляр по умолчанию, который ничего не делает при вызове методов.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions.TicketDataFormat">
+            <summary>
+            TicketDataFormat используется для защиты и раскрытия идентичности и других свойств, которые хранятся в
+            значении файла cookie. Если не предоставлено, оно будет создано с использованием <see cref="P:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions.DataProtectionProvider"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions.CookieManager">
+             <summary>
+             Компонент, используемый для получения файлов cookie из запроса или установки их в ответе.
+            
+             ChunkingCookieManager будет использоваться по умолчанию.
+             </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions.SessionStore">
+            <summary>
+            Необязательный контейнер для хранения идентичности между запросами. При использовании только идентификатор сеанса отправляется
+            клиенту. Это можно использовать для смягчения потенциальных проблем с очень большими идентичностями.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions.ExpireTimeSpan">
+            <summary>
+            <para>
+            Управляет тем, сколько времени билет аутентификации, хранящийся в файле cookie, остается действительным с момента его создания.
+            Информация об истечении срока действия хранится в защищенном билете файла cookie. Из-за этого просроченный файл cookie будет игнорироваться,
+            даже если он передан серверу после того, как браузер должен был его удалить.
+            </para>
+            <para>
+            Это отдельно от значения <see cref="P:Microsoft.AspNetCore.Http.CookieOptions.Expires"/>, которое указывает,
+            как долго браузер будет хранить файл cookie.
+            </para>
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.Cookies.CookieSignedInContext">
+            <summary>
+            Объект контекста, передаваемый методу ICookieAuthenticationEvents SignedIn.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Cookies.CookieSignedInContext.#ctor(Microsoft.AspNetCore.Http.HttpContext,Microsoft.AspNetCore.Authentication.AuthenticationScheme,System.Security.Claims.ClaimsPrincipal,Microsoft.AspNetCore.Authentication.AuthenticationProperties,Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions)">
+            <summary>
+            Создает новый экземпляр объекта контекста.
+            </summary>
+            <param name="context">Контекст HTTP-запроса</param>
+            <param name="scheme">Данные схемы</param>
+            <param name="principal">Инициализирует свойство Principal</param>
+            <param name="properties">Инициализирует свойство Properties</param>
+            <param name="options">Параметры обработчика</param>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.Cookies.CookieSigningInContext">
+            <summary>
+            Объект контекста, передаваемый <see cref="M:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationEvents.SigningIn(Microsoft.AspNetCore.Authentication.Cookies.CookieSigningInContext)"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Cookies.CookieSigningInContext.#ctor(Microsoft.AspNetCore.Http.HttpContext,Microsoft.AspNetCore.Authentication.AuthenticationScheme,Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions,System.Security.Claims.ClaimsPrincipal,Microsoft.AspNetCore.Authentication.AuthenticationProperties,Microsoft.AspNetCore.Http.CookieOptions)">
+            <summary>
+            Создает новый экземпляр объекта контекста.
+            </summary>
+            <param name="context">Контекст HTTP-запроса</param>
+            <param name="scheme">Данные схемы</param>
+            <param name="options">Параметры обработчика</param>
+            <param name="principal">Инициализирует свойство Principal</param>
+            <param name="properties">Свойства аутентификации.</param>
+            <param name="cookieOptions">Инициализирует параметры для файла cookie аутентификации.</param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.Cookies.CookieSigningInContext.CookieOptions">
+            <summary>
+            Параметры для создания исходящего файла cookie.
+            Могут быть заменены или изменены во время вызова SigningIn.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.Cookies.CookieSigningOutContext">
+            <summary>
+            Объект контекста, передаваемый <see cref="M:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationEvents.SigningOut(Microsoft.AspNetCore.Authentication.Cookies.CookieSigningOutContext)"/>
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Cookies.CookieSigningOutContext.#ctor(Microsoft.AspNetCore.Http.HttpContext,Microsoft.AspNetCore.Authentication.AuthenticationScheme,Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions,Microsoft.AspNetCore.Authentication.AuthenticationProperties,Microsoft.AspNetCore.Http.CookieOptions)">
+             <summary>
+            
+             </summary>
+             <param name="context"></param>
+             <param name="scheme"></param>
+             <param name="options"></param>
+             <param name="properties"></param>
+             <param name="cookieOptions"></param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.Cookies.CookieSigningOutContext.CookieOptions">
+            <summary>
+            Параметры для создания исходящего файла cookie.
+            Могут быть заменены или изменены во время вызова SigningOut.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.Cookies.CookieSlidingExpirationContext">
+            <summary>
+            Объект контекста, передаваемый методу CookieAuthenticationEvents OnCheckSlidingExpiration.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Cookies.CookieSlidingExpirationContext.#ctor(Microsoft.AspNetCore.Http.HttpContext,Microsoft.AspNetCore.Authentication.AuthenticationScheme,Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions,Microsoft.AspNetCore.Authentication.AuthenticationTicket,System.TimeSpan,System.TimeSpan)">
+            <summary>
+            Создает новый экземпляр объекта контекста.
+            </summary>
+            <param name="context"></param>
+            <param name="scheme"></param>
+            <param name="ticket">Содержит начальные значения для идентичности и дополнительных данных</param>
+            <param name="elapsedTime"></param>
+            <param name="remainingTime"></param>
+            <param name="options"></param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.Cookies.CookieSlidingExpirationContext.ElapsedTime">
+            <summary>
+            Количество времени, прошедшее с момента выдачи или обновления файла cookie.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.Cookies.CookieSlidingExpirationContext.RemainingTime">
+            <summary>
+            Количество времени, оставшееся до истечения срока действия файла cookie.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.Cookies.CookieSlidingExpirationContext.ShouldRenew">
+            <summary>
+            Если true, файл cookie будет обновлен. Начальное значение будет true, если прошедшее время
+            больше оставшегося времени (например, истекло более 50%).
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.Cookies.CookieValidatePrincipalContext">
+            <summary>
+            Объект контекста, передаваемый методу CookieAuthenticationEvents ValidatePrincipal.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Cookies.CookieValidatePrincipalContext.#ctor(Microsoft.AspNetCore.Http.HttpContext,Microsoft.AspNetCore.Authentication.AuthenticationScheme,Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions,Microsoft.AspNetCore.Authentication.AuthenticationTicket)">
+            <summary>
+            Создает новый экземпляр объекта контекста.
+            </summary>
+            <param name="context"></param>
+            <param name="scheme"></param>
+            <param name="ticket">Содержит начальные значения для идентичности и дополнительных данных</param>
+            <param name="options"></param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.Cookies.CookieValidatePrincipalContext.ShouldRenew">
+            <summary>
+            Если true, файл cookie будет обновлен
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Cookies.CookieValidatePrincipalContext.ReplacePrincipal(System.Security.Claims.ClaimsPrincipal)">
+            <summary>
+            Вызывается для замены claims principal. Предоставленный principal заменит значение свойства
+            Principal, которое определяет идентичность аутентифицированного запроса.
+            </summary>
+            <param name="principal"><see cref="T:System.Security.Claims.ClaimsPrincipal"/>, используемый для замены</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Cookies.CookieValidatePrincipalContext.RejectPrincipal">
+            <summary>
+            Вызывается для отклонения входящего principal. Это может быть сделано, если приложение определило, что
+            учетная запись больше не активна, и запрос следует рассматривать как анонимный.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.Cookies.ICookieManager">
+            <summary>
+            Это используется CookieAuthenticationMiddleware для обработки файлов cookie запроса и ответа.
+            Это абстрагировано от обычных API файлов cookie для поддержки сложных операций, таких как разделение на части.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Cookies.ICookieManager.GetRequestCookie(Microsoft.AspNetCore.Http.HttpContext,System.String)">
+            <summary>
+            Получить файл cookie с заданным именем из запроса.
+            </summary>
+            <param name="context"></param>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Cookies.ICookieManager.AppendResponseCookie(Microsoft.AspNetCore.Http.HttpContext,System.String,System.String,Microsoft.AspNetCore.Http.CookieOptions)">
+            <summary>
+            Добавить указанный файл cookie в ответ.
+            </summary>
+            <param name="context"></param>
+            <param name="key"></param>
+            <param name="value"></param>
+            <param name="options"></param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Cookies.ICookieManager.DeleteCookie(Microsoft.AspNetCore.Http.HttpContext,System.String,Microsoft.AspNetCore.Http.CookieOptions)">
+            <summary>
+            Добавить файл cookie удаления в ответ.
+            </summary>
+            <param name="context"></param>
+            <param name="key"></param>
+            <param name="options"></param>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.Cookies.ITicketStore">
+            <summary>
+            Это предоставляет механизм абстрактного хранения для сохранения информации об идентичности на сервере,
+            отправляя клиенту только простой ключ идентификатора. Чаще всего это используется для смягчения
+            проблем с сериализацией больших идентичностей в файлы cookie.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Cookies.ITicketStore.StoreAsync(Microsoft.AspNetCore.Authentication.AuthenticationTicket)">
+            <summary>
+            Сохранить билет идентичности и вернуть связанный ключ.
+            </summary>
+            <param name="ticket">Информация об идентичности для хранения.</param>
+            <returns>Ключ, который можно использовать для последующего получения идентичности.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Cookies.ITicketStore.StoreAsync(Microsoft.AspNetCore.Authentication.AuthenticationTicket,System.Threading.CancellationToken)">
+            <summary>
+            Сохранить билет идентичности и вернуть связанный ключ.
+            </summary>
+            <param name="ticket">Информация об идентичности для хранения.</param>
+            <param name="cancellationToken"><see cref="T:System.Threading.CancellationToken"/>, используемый для передачи уведомлений о том, что операцию следует отменить.</param>
+            <returns>Ключ, который можно использовать для последующего получения идентичности.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Cookies.ITicketStore.StoreAsync(Microsoft.AspNetCore.Authentication.AuthenticationTicket,Microsoft.AspNetCore.Http.HttpContext,System.Threading.CancellationToken)">
+            <summary>
+            Сохранить билет идентичности и вернуть связанный ключ.
+            </summary>
+            <param name="ticket">Информация об идентичности для хранения.</param>
+            <param name="httpContext"><see cref="T:Microsoft.AspNetCore.Http.HttpContext"/>, связанный с текущим запросом.</param>
+            <param name="cancellationToken"><see cref="T:System.Threading.CancellationToken"/>, используемый для передачи уведомлений о том, что операцию следует отменить.</param>
+            <returns>Ключ, который можно использовать для последующего получения идентичности.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Cookies.ITicketStore.RenewAsync(System.String,Microsoft.AspNetCore.Authentication.AuthenticationTicket)">
+            <summary>
+            Сообщает хранилищу, что указанную идентичность следует обновить.
+            </summary>
+            <param name="key"></param>
+            <param name="ticket"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Cookies.ITicketStore.RenewAsync(System.String,Microsoft.AspNetCore.Authentication.AuthenticationTicket,System.Threading.CancellationToken)">
+            <summary>
+            Сообщает хранилищу, что указанную идентичность следует обновить.
+            </summary>
+            <param name="key"></param>
+            <param name="ticket"></param>
+            <param name="cancellationToken"><see cref="T:System.Threading.CancellationToken"/>, используемый для передачи уведомлений о том, что операцию следует отменить.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Cookies.ITicketStore.RenewAsync(System.String,Microsoft.AspNetCore.Authentication.AuthenticationTicket,Microsoft.AspNetCore.Http.HttpContext,System.Threading.CancellationToken)">
+            <summary>
+            Сообщает хранилищу, что указанную идентичность следует обновить.
+            </summary>
+            <param name="key"></param>
+            <param name="ticket"></param>
+            <param name="httpContext"></param>
+            <param name="cancellationToken"><see cref="T:System.Threading.CancellationToken"/>, используемый для передачи уведомлений о том, что операцию следует отменить.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Cookies.ITicketStore.RetrieveAsync(System.String)">
+            <summary>
+            Получает идентичность из хранилища для указанного ключа.
+            </summary>
+            <param name="key">Ключ, связанный с идентичностью.</param>
+            <returns>Идентичность, связанная с указанным ключом, или <c>null</c>, если не найдена.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Cookies.ITicketStore.RetrieveAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Получает идентичность из хранилища для указанного ключа.
+            </summary>
+            <param name="key">Ключ, связанный с идентичностью.</param>
+            <param name="cancellationToken"><see cref="T:System.Threading.CancellationToken"/>, используемый для передачи уведомлений о том, что операцию следует отменить.</param>
+            <returns>Идентичность, связанная с указанным ключом, или <c>null</c>, если не найдена.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Cookies.ITicketStore.RetrieveAsync(System.String,Microsoft.AspNetCore.Http.HttpContext,System.Threading.CancellationToken)">
+            <summary>
+            Получает идентичность из хранилища для указанного ключа.
+            </summary>
+            <param name="key">Ключ, связанный с идентичностью.</param>
+            <param name="httpContext"><see cref="T:Microsoft.AspNetCore.Http.HttpContext"/>, связанный с текущим запросом.</param>
+            <param name="cancellationToken"><see cref="T:System.Threading.CancellationToken"/>, используемый для передачи уведомлений о том, что операцию следует отменить.</param>
+            <returns>Идентичность, связанная с указанным ключом, или <c>null</c>, если не найдена.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Cookies.ITicketStore.RemoveAsync(System.String)">
+            <summary>
+            Удаляет идентичность, связанную с указанным ключом.
+            </summary>
+            <param name="key">Ключ, связанный с идентичностью.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Cookies.ITicketStore.RemoveAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Удаляет идентичность, связанную с указанным ключом.
+            </summary>
+            <param name="key">Ключ, связанный с идентичностью.</param>
+            <param name="cancellationToken"><see cref="T:System.Threading.CancellationToken"/>, используемый для передачи уведомлений о том, что операцию следует отменить.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Cookies.ITicketStore.RemoveAsync(System.String,Microsoft.AspNetCore.Http.HttpContext,System.Threading.CancellationToken)">
+            <summary>
+            Удаляет идентичность, связанную с указанным ключом.
+            </summary>
+            <param name="key">Ключ, связанный с идентичностью.</param>
+            <param name="httpContext"><see cref="T:Microsoft.AspNetCore.Http.HttpContext"/>, связанный с текущим запросом.</param>
+            <param name="cancellationToken"><see cref="T:System.Threading.CancellationToken"/>, используемый для передачи уведомлений о том, что операцию следует отменить.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.Cookies.PostConfigureCookieAuthenticationOptions">
+            <summary>
+            Используется для настройки значений по умолчанию для всех <see cref="T:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Cookies.PostConfigureCookieAuthenticationOptions.#ctor(Microsoft.AspNetCore.DataProtection.IDataProtectionProvider)">
+            <summary>
+            Инициализирует новый экземпляр <see cref="T:Microsoft.AspNetCore.Authentication.Cookies.PostConfigureCookieAuthenticationOptions"/>.
+            </summary>
+            <param name="dataProtection"><see cref="T:Microsoft.AspNetCore.DataProtection.IDataProtectionProvider"/>.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Cookies.PostConfigureCookieAuthenticationOptions.PostConfigure(System.String,Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions)">
+            <summary>
+            Вызывается для пост-настройки экземпляра TOptions.
+            </summary>
+            <param name="name">Имя настраиваемого экземпляра параметров.</param>
+            <param name="options">Экземпляр параметров для настройки.</param>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.Cookies.ChunkingCookieManager">
+            <summary>
+            Обрабатывает файлы cookie, ограниченные длиной каждого файла cookie. Разбивает длинные файлы cookie для ответов и собирает их обратно
+            из запросов.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Authentication.Cookies.ChunkingCookieManager.DefaultChunkSize">
+            <summary>
+            Максимальный размер символов в файле cookie по умолчанию для отправки клиенту.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Cookies.ChunkingCookieManager.#ctor">
+            <summary>
+            Инициализирует новый экземпляр <see cref="T:Microsoft.AspNetCore.Authentication.Cookies.ChunkingCookieManager"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.Cookies.ChunkingCookieManager.ChunkSize">
+             <summary>
+             Максимальный размер файла cookie для отправки клиенту. Если файл cookie превышает этот размер, он будет разбит на несколько
+             файлов cookie. Установите это значение в null, чтобы отключить такое поведение. По умолчанию — 4050 символов, что поддерживается всеми
+             распространенными браузерами.
+            
+             Обратите внимание, что браузеры могут также иметь ограничения на общий размер всех файлов cookie для домена и на количество файлов cookie для домена.
+             </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.Cookies.ChunkingCookieManager.ThrowForPartialCookies">
+            <summary>
+            Генерировать исключение, если не все части файла cookie доступны в запросе для повторной сборки.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Cookies.ChunkingCookieManager.GetRequestCookie(Microsoft.AspNetCore.Http.HttpContext,System.String)">
+            <summary>
+            Получить собранный файл cookie. Файлы cookie без разделения возвращаются обычно.
+            Файлы cookie с отсутствующими частями просто возвращают свой заголовок "chunks-XX".
+            </summary>
+            <param name="context"></param>
+            <param name="key"></param>
+            <returns>Собранный файл cookie, если есть, или null.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Cookies.ChunkingCookieManager.AppendResponseCookie(Microsoft.AspNetCore.Http.HttpContext,System.String,System.String,Microsoft.AspNetCore.Http.CookieOptions)">
+            <summary>
+            Добавляет новый файл cookie ответа в заголовок Set-Cookie. Если файл cookie превышает указанный предел размера,
+            он будет разбит на несколько файлов cookie следующим образом:
+            Set-Cookie: CookieName=chunks-3; path=/
+            Set-Cookie: CookieNameC1=Segment1; path=/
+            Set-Cookie: CookieNameC2=Segment2; path=/
+            Set-Cookie: CookieNameC3=Segment3; path=/
+            </summary>
+            <param name="context"></param>
+            <param name="key"></param>
+            <param name="value"></param>
+            <param name="options"></param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Cookies.ChunkingCookieManager.DeleteCookie(Microsoft.AspNetCore.Http.HttpContext,System.String,Microsoft.AspNetCore.Http.CookieOptions)">
+            <summary>
+            Удаляет файл cookie с указанным ключом, устанавливая состояние истекшего. Если в запросе существует соответствующий разделенный файл cookie, удаляет каждую часть.
+            </summary>
+            <param name="context"></param>
+            <param name="key"></param>
+            <param name="options"></param>
+        </member>
+        <member name="T:Microsoft.Extensions.DependencyInjection.CookieExtensions">
+            <summary>
+            Методы расширения для настройки аутентификации с помощью файлов cookie.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.CookieExtensions.AddCookie(Microsoft.AspNetCore.Authentication.AuthenticationBuilder)">
+            <summary>
+            Добавляет аутентификацию с помощью файлов cookie в <see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationBuilder"/>, используя схему по умолчанию.
+            Схема по умолчанию указана в <see cref="F:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme"/>.
+            <para>
+            Аутентификация с помощью файлов cookie использует HTTP-файл cookie, сохраняемый на клиенте, для выполнения аутентификации.
+            </para>
+            </summary>
+            <param name="builder"><see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationBuilder"/>.</param>
+            <returns>Ссылка на <paramref name="builder"/> после завершения операции.</returns>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.CookieExtensions.AddCookie(Microsoft.AspNetCore.Authentication.AuthenticationBuilder,System.String)">
+            <summary>
+            Добавляет аутентификацию с помощью файлов cookie в <see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationBuilder"/>, используя указанную схему.
+            <para>
+            Аутентификация с помощью файлов cookie использует HTTP-файл cookie, сохраняемый на клиенте, для выполнения аутентификации.
+            </para>
+            </summary>
+            <param name="builder"><see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationBuilder"/>.</param>
+            <param name="authenticationScheme">Схема аутентификации.</param>
+            <returns>Ссылка на <paramref name="builder"/> после завершения операции.</returns>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.CookieExtensions.AddCookie(Microsoft.AspNetCore.Authentication.AuthenticationBuilder,System.Action{Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions})">
+            <summary>
+            Добавляет аутентификацию с помощью файлов cookie в <see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationBuilder"/>, используя схему по умолчанию.
+            Схема по умолчанию указана в <see cref="F:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme"/>.
+            <para>
+            Аутентификация с помощью файлов cookie использует HTTP-файл cookie, сохраняемый на клиенте, для выполнения аутентификации.
+            </para>
+            </summary>
+            <param name="builder"><see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationBuilder"/>.</param>
+            <param name="configureOptions">Делегат для настройки <see cref="T:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions"/>.</param>
+            <returns>Ссылка на <paramref name="builder"/> после завершения операции.</returns>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.CookieExtensions.AddCookie(Microsoft.AspNetCore.Authentication.AuthenticationBuilder,System.String,System.Action{Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions})">
+            <summary>
+            Добавляет аутентификацию с помощью файлов cookie в <see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationBuilder"/>, используя указанную схему.
+            <para>
+            Аутентификация с помощью файлов cookie использует HTTP-файл cookie, сохраняемый на клиенте, для выполнения аутентификации.
+            </para>
+            </summary>
+            <param name="builder"><see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationBuilder"/>.</param>
+            <param name="authenticationScheme">Схема аутентификации.</param>
+            <param name="configureOptions">Делегат для настройки <see cref="T:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions"/>.</param>
+            <returns>Ссылка на <paramref name="builder"/> после завершения операции.</returns>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.CookieExtensions.AddCookie(Microsoft.AspNetCore.Authentication.AuthenticationBuilder,System.String,System.String,System.Action{Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions})">
+            <summary>
+            Добавляет аутентификацию с помощью файлов cookie в <see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationBuilder"/>, используя указанную схему.
+            <para>
+            Аутентификация с помощью файлов cookie использует HTTP-файл cookie, сохраняемый на клиенте, для выполнения аутентификации.
+            </para>
+            </summary>
+            <param name="builder"><see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationBuilder"/>.</param>
+            <param name="authenticationScheme">Схема аутентификации.</param>
+            <param name="displayName">Отображаемое имя для схемы.</param>
+            <param name="configureOptions">Делегат для настройки <see cref="T:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions"/>.</param>
+            <returns>Ссылка на <paramref name="builder"/> после завершения операции.</returns>
+        </member>
+    </members>
+</doc>
