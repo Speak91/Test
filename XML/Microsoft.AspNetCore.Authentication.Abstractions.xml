@@ -1,0 +1,951 @@
+﻿<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.AspNetCore.Authentication.Abstractions</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.AspNetCore.Authentication.AuthenticateResult">
+            <summary>
+            Содержит результат вызова аутентификации
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.AuthenticateResult.#ctor">
+            <summary>
+            Создает новый экземпляр &lt;see cref="T:Microsoft.AspNetCore.Authentication.AuthenticateResult"/&gt;.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.AuthenticateResult.Succeeded">
+            <summary>
+            Если билет был создан, аутентификация прошла успешно.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.AuthenticateResult.Ticket">
+            <summary>
+            Билет аутентификации.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.AuthenticateResult.Principal">
+            <summary>
+            Получает субъект утверждений с удостоверениями пользователя, прошедшими проверку подлинности.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.AuthenticateResult.Properties">
+            <summary>
+            Дополнительные значения состояния для сеанса аутентификации.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.AuthenticateResult.Failure">
+            <summary>
+            Содержит информацию об ошибках аутентификации.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.AuthenticateResult.None">
+            <summary>
+            Указывает, что для этой схемы аутентификации не было возвращено никакой информации.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.AuthenticateResult.Clone">
+            <summary>
+            Создайте новую глубокую копию результата
+            </summary>
+            <returns>A copy of the result</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.AuthenticateResult.Success(Microsoft.AspNetCore.Authentication.AuthenticationTicket)">
+            <summary>
+            Указывает, что аутентификация прошла успешно.
+            </summary>
+            <param name="ticket">The ticket representing the authentication result.</param>
+            <returns>The result.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.AuthenticateResult.NoResult">
+            <summary>
+            Указывает, что для этой схемы аутентификации не было возвращено никакой информации.
+            </summary>
+            <returns>The result.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.AuthenticateResult.Fail(System.Exception)">
+            <summary>
+            Указывает на то, что при аутентификации произошел сбой.
+            </summary>
+            <param name="failure">The failure exception.</param>
+            <returns>The result.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.AuthenticateResult.Fail(System.Exception,Microsoft.AspNetCore.Authentication.AuthenticationProperties)">
+            <summary>
+            Указывает на то, что при аутентификации произошел сбой.
+            </summary>
+            <param name="failure">The failure exception.</param>
+            <param name="properties">Additional state values for the authentication session.</param>
+            <returns>The result.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.AuthenticateResult.Fail(System.String)">
+            <summary>
+            Указывает на то, что при аутентификации произошел сбой.
+            </summary>
+            <param name="failureMessage">The failure message.</param>
+            <returns>The result.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.AuthenticateResult.Fail(System.String,Microsoft.AspNetCore.Authentication.AuthenticationProperties)">
+            <summary>
+            Указывает на то, что при аутентификации произошел сбой.
+            </summary>
+            <param name="failureMessage">The failure message.</param>
+            <param name="properties">Additional state values for the authentication session.</param>
+            <returns>The result.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.AuthenticationFailureException">
+            <summary>
+            Общий сбой аутентификации.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.AuthenticationFailureException.#ctor(System.String)">
+            <summary>
+            Создает новый экземпляр &lt;see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationFailureException"/&gt;
+            с указанным исключением &lt;paramref name="message"/&gt;.
+            </summary>
+            <param name="message">The message that describes the error.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.AuthenticationFailureException.#ctor(System.String,System.Exception)">
+            <summary>
+            Создает новый экземпляр &lt;see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationFailureException"/&gt;
+            с указанным исключением &lt;paramref name="message"/&gt; и
+            ссылка на внутреннее исключение, которое является причиной этого исключения.
+            </summary>
+            <param name="message">The message that describes the error.</param>
+            <param name="innerException">The exception that is the cause of the current exception, or <see langword="null"/>.</param>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions">
+            <summary>
+            Методы расширения для предоставления аутентификации в HttpContext.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.AuthenticateAsync(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Аутентифицируйте текущий запрос, используя схему аутентификации по умолчанию.
+            Схему аутентификации по умолчанию можно настроить с помощью &lt;see cref="P:Microsoft.AspNetCore.Authentication.AuthenticationOptions.DefaultAuthenticateScheme"/&gt;.
+            </summary>
+            <param name="context">The <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/> context.</param>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Authentication.AuthenticateResult"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.AuthenticateAsync(Microsoft.AspNetCore.Http.HttpContext,System.String)">
+            <summary>
+            Аутентифицируйте текущий запрос, используя указанную схему.
+            </summary>
+            <param name="context">The <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/> context.</param>
+            <param name="scheme">The name of the authentication scheme.</param>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Authentication.AuthenticateResult"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.ChallengeAsync(Microsoft.AspNetCore.Http.HttpContext,System.String)">
+            <summary>
+            Вызов текущего запроса, используя указанную схему.
+            Запрос аутентификации может быть выдан, когда неаутентифицированный пользователь запрашивает конечную точку, требующую аутентификации.
+            </summary>
+            <param name="context">The <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/> context.</param>
+            <param name="scheme">The name of the authentication scheme.</param>
+            <returns>The result.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.ChallengeAsync(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Вызов текущего запроса, используя схему вызова по умолчанию.
+            Запрос аутентификации может быть выдан, когда неаутентифицированный пользователь запрашивает конечную точку, требующую аутентификации.
+            Схему вызова по умолчанию можно настроить с помощью &lt;see cref="P:Microsoft.AspNetCore.Authentication.AuthenticationOptions.DefaultChallengeScheme"/&gt;.
+            </summary>
+            <param name="context">The <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/> context.</param>
+            <returns>The task.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.ChallengeAsync(Microsoft.AspNetCore.Http.HttpContext,Microsoft.AspNetCore.Authentication.AuthenticationProperties)">
+            <summary>
+            Вызов текущего запроса, используя схему вызова по умолчанию.
+            Запрос аутентификации может быть выдан, когда неаутентифицированный пользователь запрашивает конечную точку, требующую аутентификации.
+            Схему вызова по умолчанию можно настроить с помощью &lt;see cref="P:Microsoft.AspNetCore.Authentication.AuthenticationOptions.DefaultChallengeScheme"/&gt;.
+            </summary>
+            <param name="context">The <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/> context.</param>
+            <param name="properties">The <see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationProperties"/> properties.</param>
+            <returns>The task.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.ChallengeAsync(Microsoft.AspNetCore.Http.HttpContext,System.String,Microsoft.AspNetCore.Authentication.AuthenticationProperties)">
+            <summary>
+            Вызов текущего запроса, используя указанную схему.
+            Запрос аутентификации может быть выдан, когда неаутентифицированный пользователь запрашивает конечную точку, требующую аутентификации.
+            </summary>
+            <param name="context">The <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/> context.</param>
+            <param name="scheme">The name of the authentication scheme.</param>
+            <param name="properties">The <see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationProperties"/> properties.</param>
+            <returns>The task.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.ForbidAsync(Microsoft.AspNetCore.Http.HttpContext,System.String)">
+            <summary>
+            Запретить текущий запрос по указанной схеме.
+            Запретить используется, когда аутентифицированный пользователь пытается получить доступ к ресурсу, к которому ему не разрешен доступ.
+            </summary>
+            <param name="context">The <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/> context.</param>
+            <param name="scheme">The name of the authentication scheme.</param>
+            <returns>The task.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.ForbidAsync(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Запретите текущий запрос, используя схему запрета по умолчанию.
+            Запретить используется, когда аутентифицированный пользователь пытается получить доступ к ресурсу, к которому ему не разрешен доступ.
+            Схему запрета по умолчанию можно настроить с помощью &lt;see cref="P:Microsoft.AspNetCore.Authentication.AuthenticationOptions.DefaultForbidScheme"/&gt;.
+            </summary>
+            <param name="context">The <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/> context.</param>
+            <returns>The task.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.ForbidAsync(Microsoft.AspNetCore.Http.HttpContext,Microsoft.AspNetCore.Authentication.AuthenticationProperties)">
+            <summary>
+            Запретите текущий запрос, используя схему запрета по умолчанию.
+            Запретить используется, когда аутентифицированный пользователь пытается получить доступ к ресурсу, к которому ему не разрешен доступ.
+            Схему запрета по умолчанию можно настроить с помощью &lt;see cref="P:Microsoft.AspNetCore.Authentication.AuthenticationOptions.DefaultForbidScheme"/&gt;.
+            </summary>
+            <param name="context">The <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/> context.</param>
+            <param name="properties">The <see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationProperties"/> properties.</param>
+            <returns>The task.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.ForbidAsync(Microsoft.AspNetCore.Http.HttpContext,System.String,Microsoft.AspNetCore.Authentication.AuthenticationProperties)">
+            <summary>
+            Запретить текущий запрос по указанной схеме.
+            Запретить используется, когда аутентифицированный пользователь пытается получить доступ к ресурсу, к которому ему не разрешен доступ.
+            </summary>
+            <param name="context">The <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/> context.</param>
+            <param name="scheme">The name of the authentication scheme.</param>
+            <param name="properties">The <see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationProperties"/> properties.</param>
+            <returns>The task.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.SignInAsync(Microsoft.AspNetCore.Http.HttpContext,System.String,System.Security.Claims.ClaimsPrincipal)">
+            <summary>
+            Войдите в систему как принципал для указанной схемы.
+            </summary>
+            <param name="context">The <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/> context.</param>
+            <param name="scheme">The name of the authentication scheme.</param>
+            <param name="principal">The user.</param>
+            <returns>The task.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.SignInAsync(Microsoft.AspNetCore.Http.HttpContext,System.Security.Claims.ClaimsPrincipal)">
+            <summary>
+            Войдите в систему как участник для схемы аутентификации по умолчанию.
+            Схему входа по умолчанию можно настроить с помощью &lt;see cref="P:Microsoft.AspNetCore.Authentication.AuthenticationOptions.DefaultSignInScheme"/&gt;.
+            </summary>
+            <param name="context">The <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/> context.</param>
+            <param name="principal">The user.</param>
+            <returns>The task.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.SignInAsync(Microsoft.AspNetCore.Http.HttpContext,System.Security.Claims.ClaimsPrincipal,Microsoft.AspNetCore.Authentication.AuthenticationProperties)">
+            <summary>
+            Войдите в систему как участник для схемы аутентификации по умолчанию.
+            Схему входа по умолчанию можно настроить с помощью &lt;see cref="P:Microsoft.AspNetCore.Authentication.AuthenticationOptions.DefaultSignInScheme"/&gt;.
+            </summary>
+            <param name="context">The <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/> context.</param>
+            <param name="principal">The user.</param>
+            <param name="properties">The <see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationProperties"/> properties.</param>
+            <returns>The task.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.SignInAsync(Microsoft.AspNetCore.Http.HttpContext,System.String,System.Security.Claims.ClaimsPrincipal,Microsoft.AspNetCore.Authentication.AuthenticationProperties)">
+            <summary>
+            Войдите в систему как принципал для указанной схемы.
+            </summary>
+            <param name="context">The <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/> context.</param>
+            <param name="scheme">The name of the authentication scheme.</param>
+            <param name="principal">The user.</param>
+            <param name="properties">The <see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationProperties"/> properties.</param>
+            <returns>The task.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.SignOutAsync(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Выйдите из принципала для схемы аутентификации по умолчанию.
+            Схему выхода по умолчанию можно настроить с помощью &lt;see cref="P:Microsoft.AspNetCore.Authentication.AuthenticationOptions.DefaultSignOutScheme"/&gt;.
+            </summary>
+            <param name="context">The <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/> context.</param>
+            <returns>The task.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.SignOutAsync(Microsoft.AspNetCore.Http.HttpContext,Microsoft.AspNetCore.Authentication.AuthenticationProperties)">
+            <summary>
+            Выйдите из принципала для схемы аутентификации по умолчанию.
+            Схему выхода по умолчанию можно настроить с помощью &lt;see cref="P:Microsoft.AspNetCore.Authentication.AuthenticationOptions.DefaultSignOutScheme"/&gt;.
+            </summary>
+            <param name="context">The <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/> context.</param>
+            <param name="properties">The <see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationProperties"/> properties.</param>
+            <returns>The task.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.SignOutAsync(Microsoft.AspNetCore.Http.HttpContext,System.String)">
+            <summary>
+            Выйдите из принципала для указанной схемы.
+            </summary>
+            <param name="context">The <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/> context.</param>
+            <param name="scheme">The name of the authentication scheme.</param>
+            <returns>The task.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.SignOutAsync(Microsoft.AspNetCore.Http.HttpContext,System.String,Microsoft.AspNetCore.Authentication.AuthenticationProperties)">
+            <summary>
+            Выйдите из принципала для указанной схемы.
+            </summary>
+            <param name="context">The <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/> context.</param>
+            <param name="scheme">The name of the authentication scheme.</param>
+            <param name="properties">The <see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationProperties"/> properties.</param>
+            <returns>The task.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.GetTokenAsync(Microsoft.AspNetCore.Http.HttpContext,System.String,System.String)">
+            <summary>
+            Аутентифицирует запрос с использованием указанной схемы и возвращает значение токена.
+            </summary>
+            <param name="context">The <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/> context.</param>
+            <param name="scheme">The name of the authentication scheme.</param>
+            <param name="tokenName">The name of the token.</param>
+            <returns>The value of the token if present.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.GetTokenAsync(Microsoft.AspNetCore.Http.HttpContext,System.String)">
+            <summary>
+            Аутентифицирует запрос, используя схему аутентификации по умолчанию, и возвращает значение токена.
+            Схему аутентификации по умолчанию можно настроить с помощью &lt;see cref="P:Microsoft.AspNetCore.Authentication.AuthenticationOptions.DefaultAuthenticateScheme"/&gt;.
+            </summary>
+            <param name="context">The <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/> context.</param>
+            <param name="tokenName">The name of the token.</param>
+            <returns>The value of the token if present.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.AuthenticationOptions">
+            <summary>
+            Варианты настройки аутентификации.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.AuthenticationOptions.Schemes">
+            <summary>
+            Возвращает схемы в том порядке, в котором они были добавлены (важно для приоритета обработки запросов).
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.AuthenticationOptions.SchemeMap">
+            <summary>
+            Схемы карт по названию.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.AuthenticationOptions.AddScheme(System.String,System.Action{Microsoft.AspNetCore.Authentication.AuthenticationSchemeBuilder})">
+            <summary>
+            Добавляет &lt;see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationScheme"/&gt;.
+            </summary>
+            <param name="name">The name of the scheme being added.</param>
+            <param name="configureBuilder">Configures the scheme.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.AuthenticationOptions.AddScheme``1(System.String,System.String)">
+            <summary>
+            Добавляет &lt;see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationScheme"/&gt;.
+            </summary>
+            <typeparam name="THandler">The <see cref="T:Microsoft.AspNetCore.Authentication.IAuthenticationHandler"/> responsible for the scheme.</typeparam>
+            <param name="name">The name of the scheme being added.</param>
+            <param name="displayName">The display name for the scheme.</param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.AuthenticationOptions.DefaultScheme">
+            <summary>
+            Используется в качестве резервной схемы по умолчанию для всех остальных значений по умолчанию.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.AuthenticationOptions.DefaultAuthenticateScheme">
+            <summary>
+            Используется в качестве схемы по умолчанию &lt;see cref="M:Microsoft.AspNetCore.Authentication.IAuthenticationService.AuthenticateAsync(Microsoft.AspNetCore.Http.HttpContext,System.String)"/&gt;.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.AuthenticationOptions.DefaultSignInScheme">
+            <summary>
+            Используется в качестве схемы по умолчанию &lt;see cref="M:Microsoft.AspNetCore.Authentication.IAuthenticationService.SignInAsync(Microsoft.AspNetCore.Http.HttpContext,System.String,System.Security.Claims.ClaimsPrincipal,Microsoft.AspNetCore.Authentication.AuthenticationProperties)"/&gt;.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.AuthenticationOptions.DefaultSignOutScheme">
+            <summary>
+            Используется в качестве схемы по умолчанию &lt;see cref="M:Microsoft.AspNetCore.Authentication.IAuthenticationService.SignOutAsync(Microsoft.AspNetCore.Http.HttpContext,System.String,Microsoft.AspNetCore.Authentication.AuthenticationProperties)"/&gt;.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.AuthenticationOptions.DefaultChallengeScheme">
+            <summary>
+            Используется в качестве схемы по умолчанию &lt;see cref="M:Microsoft.AspNetCore.Authentication.IAuthenticationService.ChallengeAsync(Microsoft.AspNetCore.Http.HttpContext,System.String,Microsoft.AspNetCore.Authentication.AuthenticationProperties)"/&gt;.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.AuthenticationOptions.DefaultForbidScheme">
+            <summary>
+            Используется в качестве схемы по умолчанию &lt;see cref="M:Microsoft.AspNetCore.Authentication.IAuthenticationService.ForbidAsync(Microsoft.AspNetCore.Http.HttpContext,System.String,Microsoft.AspNetCore.Authentication.AuthenticationProperties)"/&gt;.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.AuthenticationOptions.RequireAuthenticatedSignIn">
+            <summary>
+            Если это правда, SignIn должен выдать ошибку, если попытка пользователя не аутентифицирована.
+            Пользователь считается аутентифицированным, если &lt;see cref="P:System.Security.Claims.ClaimsIdentity.IsAuthenticated"/&gt; возвращает &lt;see langword="true" /&gt; для &lt;see cref="T:System.Security.Claims.ClaimsPrincipal"/&gt;, связанного с HTTP-запросом.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Authentication.AuthenticationOptions._disableAutoDefaultScheme">
+            <summary>
+            Если это правда, DefaultScheme не будет автоматически использовать одну зарегистрированную схему.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.AuthenticationProperties">
+            <summary>
+            Словарь, используемый для хранения значений состояния сеанса аутентификации.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.AuthenticationProperties.#ctor">
+            <summary>
+            Инициализирует новый экземпляр класса &lt;see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationProperties"/&gt;.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.AuthenticationProperties.#ctor(System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Инициализирует новый экземпляр класса &lt;see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationProperties"/&gt;.
+            </summary>
+            <param name="items">State values dictionary to use.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.AuthenticationProperties.#ctor(System.Collections.Generic.IDictionary{System.String,System.String},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Инициализирует новый экземпляр класса &lt;see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationProperties"/&gt;.
+            </summary>
+            <param name="items">State values dictionary to use.</param>
+            <param name="parameters">Parameters dictionary to use.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.AuthenticationProperties.Clone">
+            <summary>
+            Верните копию.
+            </summary>
+            <returns>A copy.</returns>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.AuthenticationProperties.Items">
+            <summary>
+            Значения состояния сеанса аутентификации.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.AuthenticationProperties.Parameters">
+            <summary>
+            Коллекция параметров, передаваемых обработчику аутентификации. 
+            сериализация или сохранение только для передачи данных между местами вызова.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.AuthenticationProperties.IsPersistent">
+            <summary>
+            Возвращает или задает, сохраняется ли сеанс проверки подлинности при нескольких запросах.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.AuthenticationProperties.RedirectUri">
+            <summary>
+            Получает или задает полный путь или абсолютный URI, который будет использоваться в качестве значения ответа на перенаправление http.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.AuthenticationProperties.IssuedUtc">
+            <summary>
+            Получает или задает время выдачи билета проверки подлинности.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.AuthenticationProperties.ExpiresUtc">
+            <summary>
+            Получает или задает время истечения срока действия билета проверки подлинности.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.AuthenticationProperties.AllowRefresh">
+            <summary>
+            Получает или задает, следует ли разрешить обновление сеанса проверки подлинности.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.AuthenticationProperties.GetString(System.String)">
+            <summary>
+            Получите строковое значение из коллекции &lt;see cref="P:Microsoft.AspNetCore.Authentication.AuthenticationProperties.Items"/&gt;.
+            </summary>
+            <param name="key">Property key.</param>
+            <returns>Retrieved value or <c>null</c> if the property is not set.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.AuthenticationProperties.SetString(System.String,System.String)">
+            <summary>
+            Установите или удалите строковое значение из коллекции &lt;see cref="P:Microsoft.AspNetCore.Authentication.AuthenticationProperties.Items"/&gt;.
+            </summary>
+            <param name="key">Property key.</param>
+            <param name="value">Value to set or <see langword="null" /> to remove the property.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.AuthenticationProperties.GetParameter``1(System.String)">
+            <summary>
+            Получите параметр из коллекции &lt;see cref="P:Microsoft.AspNetCore.Authentication.AuthenticationProperties.Parameters"/&gt;.
+            </summary>
+            <typeparam name="T">Parameter type.</typeparam>
+            <param name="key">Parameter key.</param>
+            <returns>Retrieved value or the default value if the property is not set.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.AuthenticationProperties.SetParameter``1(System.String,``0)">
+            <summary>
+            Задайте значение параметра в коллекции &lt;see cref="P:Microsoft.AspNetCore.Authentication.AuthenticationProperties.Parameters"/&gt;.
+            </summary>
+            <typeparam name="T">Parameter type.</typeparam>
+            <param name="key">Parameter key.</param>
+            <param name="value">Value to set.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.AuthenticationProperties.GetBool(System.String)">
+            <summary>
+            Получите значение &lt;see cref="T:System.Boolean"/&gt;, допускающее значение NULL, из коллекции &lt;see cref="P:Microsoft.AspNetCore.Authentication.AuthenticationProperties.Items"/&gt;.
+            </summary>
+            <param name="key">Property key.</param>
+            <returns>Retrieved value or <see langword="null" /> if the property is not set.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.AuthenticationProperties.SetBool(System.String,System.Nullable{System.Boolean})">
+            <summary>
+            Установите или удалите значение &lt;see cref="T:System.Boolean"/&gt; в коллекции &lt;see cref="P:Microsoft.AspNetCore.Authentication.AuthenticationProperties.Items"/&gt;.
+            </summary>
+            <param name="key">Property key.</param>
+            <param name="value">Value to set or <see langword="null" /> to remove the property.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.AuthenticationProperties.GetDateTimeOffset(System.String)">
+            <summary>
+            Получите значение &lt;see cref="T:System.DateTimeOffset"/&gt;, допускающее значение NULL, из коллекции &lt;see cref="P:Microsoft.AspNetCore.Authentication.AuthenticationProperties.Items"/&gt;.
+            </summary>
+            <param name="key">Property key.</param>
+            <returns>Retrieved value or <see langword="null" /> if the property is not set.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.AuthenticationProperties.SetDateTimeOffset(System.String,System.Nullable{System.DateTimeOffset})">
+            <summary>
+            Устанавливает или удаляет значение &lt;see cref="T:System.DateTimeOffset" /&gt; в коллекции &lt;see cref="P:Microsoft.AspNetCore.Authentication.AuthenticationProperties.Items"/&gt;.
+            </summary>
+            <param name="key">Property key.</param>
+            <param name="value">Value to set or <see langword="null" /> to remove the property.</param>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.AuthenticationScheme">
+            <summary>
+            AuthenticationSchemes присваивает имя определенному &lt;see cref="T:Microsoft.AspNetCore.Authentication.IAuthenticationHandler"/&gt;
+            Тип обработчика.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.AuthenticationScheme.#ctor(System.String,System.String,System.Type)">
+            <summary>
+            Инициализирует новый экземпляр &lt;see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationScheme"/&gt;.
+            </summary>
+            <param name="name">The name for the authentication scheme.</param>
+            <param name="displayName">The display name for the authentication scheme.</param>
+            <param name="handlerType">The <see cref="T:Microsoft.AspNetCore.Authentication.IAuthenticationHandler"/> type that handles this scheme.</param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.AuthenticationScheme.Name">
+            <summary>
+            Имя схемы аутентификации.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.AuthenticationScheme.DisplayName">
+            <summary>
+            Отображаемое имя схемы. 
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.AuthenticationScheme.HandlerType">
+            <summary>
+            Тип &lt;see cref="T:Microsoft.AspNetCore.Authentication.IAuthenticationHandler"/&gt;, который обрабатывает эту схему.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.AuthenticationSchemeBuilder">
+            <summary>
+            Используется для создания &lt;see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationScheme"/&gt;.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.AuthenticationSchemeBuilder.#ctor(System.String)">
+            <summary>
+            Конструктор.
+            </summary>
+            <param name="name">The name of the scheme being built.</param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.AuthenticationSchemeBuilder.Name">
+            <summary>
+            Получает имя создаваемой схемы.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.AuthenticationSchemeBuilder.DisplayName">
+            <summary>
+            Получает или задает отображаемое имя создаваемой схемы.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.AuthenticationSchemeBuilder.HandlerType">
+            <summary>
+            Получает или задает тип &lt;see cref="T:Microsoft.AspNetCore.Authentication.IAuthenticationHandler"/&gt;, отвечающий за эту схему.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.AuthenticationSchemeBuilder.Build">
+            <summary>
+            Создает экземпляр &lt;see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationScheme"/&gt;.
+            </summary>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationScheme"/>.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.AuthenticationTicket">
+            <summary>
+            Содержит идентификационную информацию пользователя, а также дополнительное состояние аутентификации.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.AuthenticationTicket.#ctor(System.Security.Claims.ClaimsPrincipal,Microsoft.AspNetCore.Authentication.AuthenticationProperties,System.String)">
+            <summary>
+            Инициализирует новый экземпляр класса &lt;see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationTicket"/&gt;.
+            </summary>
+            <param name="principal">the <see cref="T:System.Security.Claims.ClaimsPrincipal"/> that represents the authenticated user.</param>
+            <param name="properties">additional properties that can be consumed by the user or runtime.</param>
+            <param name="authenticationScheme">the authentication scheme that was responsible for this ticket.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.AuthenticationTicket.#ctor(System.Security.Claims.ClaimsPrincipal,System.String)">
+            <summary>
+            Инициализирует новый экземпляр класса &lt;see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationTicket"/&gt;.
+            </summary>
+            <param name="principal">the <see cref="T:System.Security.Claims.ClaimsPrincipal"/> that represents the authenticated user.</param>
+            <param name="authenticationScheme">the authentication scheme that was responsible for this ticket.</param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.AuthenticationTicket.AuthenticationScheme">
+            <summary>
+            Получает схему аутентификации, отвечающую за этот билет.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.AuthenticationTicket.Principal">
+            <summary>
+            Получает субъект утверждений с удостоверениями пользователя, прошедшими проверку подлинности.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.AuthenticationTicket.Properties">
+            <summary>
+            Дополнительные значения состояния для сеанса аутентификации.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.AuthenticationTicket.Clone">
+            <summary>
+            Возвращает копию билета.
+            </summary>
+            <remarks>
+            Этот метод клонирует &lt;see cref="P:Microsoft.AspNetCore.Authentication.AuthenticationTicket.Principal"/&gt;, вызывая &lt;see cref="M:System.Security.Claims.ClaimsIdentity.Clone"/&gt; для каждого из &lt;see cref="P:System.Security.Claims.ClaimsPrincipal.Identities"/&gt;.
+            </remarks>
+            <returns>A copy of the ticket</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.AuthenticationToken">
+            <summary>
+            Имя/значение, представляющее токен.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.AuthenticationToken.Name">
+            <summary>
+            Имя.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.AuthenticationToken.Value">
+            <summary>
+            Ценить.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.IAuthenticateResultFeature">
+            <summary>
+            Используется для захвата &lt;see cref="P:Microsoft.AspNetCore.Authentication.IAuthenticateResultFeature.AuthenticateResult"/&gt; из промежуточного программного обеспечения авторизации.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.IAuthenticateResultFeature.AuthenticateResult">
+            <summary>
+            &lt;see cref="P:Microsoft.AspNetCore.Authentication.IAuthenticateResultFeature.AuthenticateResult"/&gt; из промежуточного программного обеспечения авторизации.
+            Установите значение null, если свойство &lt;see cref="P:Microsoft.AspNetCore.Http.Features.Authentication.IHttpAuthenticationFeature.User"/&gt; установлено после промежуточного программного обеспечения авторизации.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.IAuthenticationConfigurationProvider">
+            <summary>
+            Предоставляет интерфейс для реализации конструкции, которая обеспечивает
+            доступ к разделам конфигурации, связанным с аутентификацией.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.IAuthenticationConfigurationProvider.AuthenticationConfiguration">
+            <summary>
+            Получает &lt;see cref="T:Microsoft.Extensions.Configuration.ConfigurationSection"/&gt;, где выполняется проверка подлинности.
+            варианты сохраняются.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.IAuthenticationFeature">
+            <summary>
+            Используется для сбора информации о пути, чтобы можно было правильно рассчитать перенаправления в app.Map().
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.IAuthenticationFeature.OriginalPathBase">
+            <summary>
+            Исходная база пути.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.IAuthenticationFeature.OriginalPath">
+            <summary>
+            Оригинальный путь.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.IAuthenticationHandler">
+            <summary>
+            Создается для каждого запроса для обработки аутентификации по определенной схеме.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.IAuthenticationHandler.InitializeAsync(Microsoft.AspNetCore.Authentication.AuthenticationScheme,Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Инициализируйте обработчик аутентификации. 
+            </summary>
+            <param name="scheme">The <see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationScheme"/> scheme.</param>
+            <param name="context">The <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/> context.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.IAuthenticationHandler.AuthenticateAsync">
+            <summary>
+            Подтвердите текущий запрос.
+            </summary>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Authentication.AuthenticateResult"/> result.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.IAuthenticationHandler.ChallengeAsync(Microsoft.AspNetCore.Authentication.AuthenticationProperties)">
+            <summary>
+            Оспорить текущий запрос.
+            </summary>
+            <param name="properties">The <see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationProperties"/> that contains the extra meta-data arriving with the authentication.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.IAuthenticationHandler.ForbidAsync(Microsoft.AspNetCore.Authentication.AuthenticationProperties)">
+            <summary>
+            Запретить текущий запрос.
+            </summary>
+            <param name="properties">The <see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationProperties"/> that contains the extra meta-data arriving with the authentication.</param>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.IAuthenticationHandlerProvider">
+            <summary>
+            Предоставляет соответствующий экземпляр IAuthenticationHandler для аутентификацииScheme и запроса.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.IAuthenticationHandlerProvider.GetHandlerAsync(Microsoft.AspNetCore.Http.HttpContext,System.String)">
+            <summary>
+            Возвращает экземпляр обработчика, который будет использоваться.
+            </summary>
+            <param name="context">The <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/>.</param>
+            <param name="authenticationScheme">The name of the authentication scheme being handled.</param>
+            <returns>The handler instance.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.IAuthenticationRequestHandler">
+            <summary>
+            Используется, чтобы определить, хочет ли обработчик участвовать в обработке запроса.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.IAuthenticationRequestHandler.HandleRequestAsync">
+            <summary>
+            Получает значение, определяющее, следует ли прекратить обработку запроса.
+            <para>
+            Эта функция поддерживается промежуточным программным обеспечением аутентификации.
+            который не вызывает никакого последующего &lt;see cref="T:Microsoft.AspNetCore.Authentication.IAuthenticationHandler"/&gt; или промежуточного программного обеспечения, настроенного в конвейере запросов
+            если обработчик возвращает &lt;see langword="true" /&gt;.
+            </para>
+            </summary>
+            <returns><see langword="true" /> if request processing should stop.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.IAuthenticationSchemeProvider">
+            <summary>
+            Отвечает за управление поддерживаемыми схемами аутентификации.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.IAuthenticationSchemeProvider.GetAllSchemesAsync">
+            <summary>
+            Возвращает все зарегистрированные на данный момент &lt;see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationScheme"/&gt;.
+            </summary>
+            <returns>All currently registered <see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationScheme"/>s.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.IAuthenticationSchemeProvider.GetSchemeAsync(System.String)">
+            <summary>
+            Возвращает &lt;see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationScheme"/&gt;, соответствующий имени, или значение null.
+            </summary>
+            <param name="name">The name of the authenticationScheme.</param>
+            <returns>The scheme or null if not found.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.IAuthenticationSchemeProvider.GetDefaultAuthenticateSchemeAsync">
+            <summary>
+            Возвращает схему, которая будет использоваться по умолчанию для &lt;see cref="M:Microsoft.AspNetCore.Authentication.IAuthenticationService.AuthenticateAsync(Microsoft.AspNetCore.Http.HttpContext,System.String)"/&gt;.
+            Обычно это указывается через &lt;see cref="P:Microsoft.AspNetCore.Authentication.AuthenticationOptions.DefaultAuthenticateScheme"/&gt;.
+            В противном случае будет использован вариант &lt;see cref="P:Microsoft.AspNetCore.Authentication.AuthenticationOptions.DefaultScheme"/&gt;.
+            </summary>
+            <returns>The scheme that will be used by default for <see cref="M:Microsoft.AspNetCore.Authentication.IAuthenticationService.AuthenticateAsync(Microsoft.AspNetCore.Http.HttpContext,System.String)"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.IAuthenticationSchemeProvider.GetDefaultChallengeSchemeAsync">
+            <summary>
+            Возвращает схему, которая будет использоваться по умолчанию для &lt;see cref="M:Microsoft.AspNetCore.Authentication.IAuthenticationService.ChallengeAsync(Microsoft.AspNetCore.Http.HttpContext,System.String,Microsoft.AspNetCore.Authentication.AuthenticationProperties)"/&gt;.
+            Обычно это указывается через &lt;see cref="P:Microsoft.AspNetCore.Authentication.AuthenticationOptions.DefaultChallengeScheme"/&gt;.
+            В противном случае будет использован вариант &lt;see cref="P:Microsoft.AspNetCore.Authentication.AuthenticationOptions.DefaultScheme"/&gt;.
+            </summary>
+            <returns>The scheme that will be used by default for <see cref="M:Microsoft.AspNetCore.Authentication.IAuthenticationService.ChallengeAsync(Microsoft.AspNetCore.Http.HttpContext,System.String,Microsoft.AspNetCore.Authentication.AuthenticationProperties)"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.IAuthenticationSchemeProvider.GetDefaultForbidSchemeAsync">
+            <summary>
+            Возвращает схему, которая будет использоваться по умолчанию для &lt;see cref="M:Microsoft.AspNetCore.Authentication.IAuthenticationService.ForbidAsync(Microsoft.AspNetCore.Http.HttpContext,System.String,Microsoft.AspNetCore.Authentication.AuthenticationProperties)"/&gt;.
+            Обычно это указывается через &lt;see cref="P:Microsoft.AspNetCore.Authentication.AuthenticationOptions.DefaultForbidScheme"/&gt;.
+            В противном случае будет использован вариант &lt;see cref="M:Microsoft.AspNetCore.Authentication.IAuthenticationSchemeProvider.GetDefaultChallengeSchemeAsync"/&gt; .
+            </summary>
+            <returns>The scheme that will be used by default for <see cref="M:Microsoft.AspNetCore.Authentication.IAuthenticationService.ForbidAsync(Microsoft.AspNetCore.Http.HttpContext,System.String,Microsoft.AspNetCore.Authentication.AuthenticationProperties)"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.IAuthenticationSchemeProvider.GetDefaultSignInSchemeAsync">
+            <summary>
+            Возвращает схему, которая будет использоваться по умолчанию для &lt;см. 
+            Обычно это указывается через &lt;see cref="P:Microsoft.AspNetCore.Authentication.AuthenticationOptions.DefaultSignInScheme"/&gt;.
+            В противном случае будет использован вариант &lt;see cref="P:Microsoft.AspNetCore.Authentication.AuthenticationOptions.DefaultScheme"/&gt;.
+            </summary>
+            <returns>The scheme that will be used by default for <see cref="M:Microsoft.AspNetCore.Authentication.IAuthenticationService.SignInAsync(Microsoft.AspNetCore.Http.HttpContext,System.String,System.Security.Claims.ClaimsPrincipal,Microsoft.AspNetCore.Authentication.AuthenticationProperties)"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.IAuthenticationSchemeProvider.GetDefaultSignOutSchemeAsync">
+            <summary>
+            Возвращает схему, которая будет использоваться по умолчанию для &lt;see cref="M:Microsoft.AspNetCore.Authentication.IAuthenticationService.SignOutAsync(Microsoft.AspNetCore.Http.HttpContext,System.String,Microsoft.AspNetCore.Authentication.AuthenticationProperties)"/&gt;.
+            Обычно это указывается через &lt;see cref="P:Microsoft.AspNetCore.Authentication.AuthenticationOptions.DefaultSignOutScheme"/&gt;.
+            В противном случае будет использован вариант &lt;see cref="M:Microsoft.AspNetCore.Authentication.IAuthenticationSchemeProvider.GetDefaultSignInSchemeAsync"/&gt; .
+            </summary>
+            <returns>The scheme that will be used by default for <see cref="M:Microsoft.AspNetCore.Authentication.IAuthenticationService.SignOutAsync(Microsoft.AspNetCore.Http.HttpContext,System.String,Microsoft.AspNetCore.Authentication.AuthenticationProperties)"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.IAuthenticationSchemeProvider.AddScheme(Microsoft.AspNetCore.Authentication.AuthenticationScheme)">
+            <summary>
+            Регистрирует схему для использования &lt;see cref="T:Microsoft.AspNetCore.Authentication.IAuthenticationService"/&gt;.
+            </summary>
+            <param name="scheme">The scheme.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.IAuthenticationSchemeProvider.TryAddScheme(Microsoft.AspNetCore.Authentication.AuthenticationScheme)">
+            <summary>
+            Регистрирует схему для использования &lt;see cref="T:Microsoft.AspNetCore.Authentication.IAuthenticationService"/&gt;.
+            </summary>
+            <param name="scheme">The scheme.</param>
+            <returns>true if the scheme was added successfully.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.IAuthenticationSchemeProvider.RemoveScheme(System.String)">
+            <summary>
+            Удаляет схему, предотвращая ее использование &lt;see cref="T:Microsoft.AspNetCore.Authentication.IAuthenticationService"/&gt;.
+            </summary>
+            <param name="name">The name of the authenticationScheme being removed.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.IAuthenticationSchemeProvider.GetRequestHandlerSchemesAsync">
+            <summary>
+            Возвращает схемы в порядке приоритета обработки запросов.
+            </summary>
+            <returns>The schemes in priority order for request handling</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.IAuthenticationService">
+            <summary>
+            Используется для аутентификации.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.IAuthenticationService.AuthenticateAsync(Microsoft.AspNetCore.Http.HttpContext,System.String)">
+            <summary>
+            Выполните аутентификацию по указанной схеме аутентификации.
+            </summary>
+            <param name="context">The <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/>.</param>
+            <param name="scheme">The name of the authentication scheme.</param>
+            <returns>The result.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.IAuthenticationService.ChallengeAsync(Microsoft.AspNetCore.Http.HttpContext,System.String,Microsoft.AspNetCore.Authentication.AuthenticationProperties)">
+            <summary>
+            Вызов указанной схемы аутентификации.
+            Запрос аутентификации может быть выдан, когда неаутентифицированный пользователь запрашивает конечную точку, требующую аутентификации.
+            </summary>
+            <param name="context">The <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/>.</param>
+            <param name="scheme">The name of the authentication scheme.</param>
+            <param name="properties">The <see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationProperties"/>.</param>
+            <returns>A task.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.IAuthenticationService.ForbidAsync(Microsoft.AspNetCore.Http.HttpContext,System.String,Microsoft.AspNetCore.Authentication.AuthenticationProperties)">
+            <summary>
+            Запрещает указанную схему аутентификации.
+            Запретить используется, когда аутентифицированный пользователь пытается получить доступ к ресурсу, к которому ему не разрешен доступ.
+            </summary>
+            <param name="context">The <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/>.</param>
+            <param name="scheme">The name of the authentication scheme.</param>
+            <param name="properties">The <see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationProperties"/>.</param>
+            <returns>A task.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.IAuthenticationService.SignInAsync(Microsoft.AspNetCore.Http.HttpContext,System.String,System.Security.Claims.ClaimsPrincipal,Microsoft.AspNetCore.Authentication.AuthenticationProperties)">
+            <summary>
+            Войдите в систему участника для указанной схемы аутентификации.
+            </summary>
+            <param name="context">The <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/>.</param>
+            <param name="scheme">The name of the authentication scheme.</param>
+            <param name="principal">The <see cref="T:System.Security.Claims.ClaimsPrincipal"/> to sign in.</param>
+            <param name="properties">The <see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationProperties"/>.</param>
+            <returns>A task.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.IAuthenticationService.SignOutAsync(Microsoft.AspNetCore.Http.HttpContext,System.String,Microsoft.AspNetCore.Authentication.AuthenticationProperties)">
+            <summary>
+            Выйдите из указанной схемы аутентификации.
+            </summary>
+            <param name="context">The <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/>.</param>
+            <param name="scheme">The name of the authentication scheme.</param>
+            <param name="properties">The <see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationProperties"/>.</param>
+            <returns>A task.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.IAuthenticationSignInHandler">
+            <summary>
+            Используется, чтобы определить, поддерживает ли обработчик SignIn.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.IAuthenticationSignInHandler.SignInAsync(System.Security.Claims.ClaimsPrincipal,Microsoft.AspNetCore.Authentication.AuthenticationProperties)">
+            <summary>
+            Обработать вход.
+            </summary>
+            <param name="user">The <see cref="T:System.Security.Claims.ClaimsPrincipal"/> user.</param>
+            <param name="properties">The <see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationProperties"/> that contains the extra meta-data arriving with the authentication.</param>
+            <returns>A task.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.IAuthenticationSignOutHandler">
+            <summary>
+            Используется, чтобы определить, поддерживает ли обработчик SignOut.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.IAuthenticationSignOutHandler.SignOutAsync(Microsoft.AspNetCore.Authentication.AuthenticationProperties)">
+            <summary>
+            Поведение выхода из системы.
+            </summary>
+            <param name="properties">The <see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationProperties"/> that contains the extra meta-data arriving with the authentication.</param>
+            <returns>A task.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.IClaimsTransformation">
+            <summary>
+            Используется &lt;see cref="T:Microsoft.AspNetCore.Authentication.IAuthenticationService"/&gt; для преобразования утверждений.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.IClaimsTransformation.TransformAsync(System.Security.Claims.ClaimsPrincipal)">
+            <summary>
+            Предоставляет центральную точку преобразования для изменения указанного участника.
+            Примечание: это будет выполняться при каждом вызове AuthenticateAsync, поэтому безопаснее
+            верните новый ClaimsPrincipal, если ваше преобразование не является идемпотентным.
+            </summary>
+            <param name="principal">The <see cref="T:System.Security.Claims.ClaimsPrincipal"/> to transform.</param>
+            <returns>The transformed principal.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.AuthenticationTokenExtensions">
+            <summary>
+            Методы расширения для хранения токенов аутентификации в &lt;see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationProperties"/&gt;.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.AuthenticationTokenExtensions.StoreTokens(Microsoft.AspNetCore.Authentication.AuthenticationProperties,System.Collections.Generic.IEnumerable{Microsoft.AspNetCore.Authentication.AuthenticationToken})">
+            <summary>
+            Хранит набор токенов аутентификации после удаления старых токенов.
+            </summary>
+            <param name="properties">The <see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationProperties"/> properties.</param>
+            <param name="tokens">The tokens to store.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.AuthenticationTokenExtensions.GetTokenValue(Microsoft.AspNetCore.Authentication.AuthenticationProperties,System.String)">
+            <summary>
+            Возвращает значение токена.
+            </summary>
+            <param name="properties">The <see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationProperties"/> properties.</param>
+            <param name="tokenName">The token name.</param>
+            <returns>The token value.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.AuthenticationTokenExtensions.UpdateTokenValue(Microsoft.AspNetCore.Authentication.AuthenticationProperties,System.String,System.String)">
+            <summary>
+            Обновляет значение токена, если он уже существует.
+            </summary>
+            <param name="properties">The <see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationProperties"/> to update.</param>
+            <param name="tokenName">The token name.</param>
+            <param name="tokenValue">The token value.</param>
+            <returns><see langword="true"/> if the token was updated, otherwise <see langword="false"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.AuthenticationTokenExtensions.GetTokens(Microsoft.AspNetCore.Authentication.AuthenticationProperties)">
+            <summary>
+            Возвращает все экземпляры &lt;see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationToken"/&gt;, содержащиеся в свойствах.
+            </summary>
+            <param name="properties">The <see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationProperties"/> properties.</param>
+            <returns>The authentication tokens.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.AuthenticationTokenExtensions.GetTokenAsync(Microsoft.AspNetCore.Authentication.IAuthenticationService,Microsoft.AspNetCore.Http.HttpContext,System.String)">
+            <summary>
+            Аутентифицирует запрос, используя указанную схему аутентификации, и возвращает значение токена.
+            </summary>
+            <param name="auth">The <see cref="T:Microsoft.AspNetCore.Authentication.IAuthenticationService"/>.</param>
+            <param name="context">The <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/> context.</param>
+            <param name="tokenName">The name of the token.</param>
+            <returns>The value of the token if present.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.AuthenticationTokenExtensions.GetTokenAsync(Microsoft.AspNetCore.Authentication.IAuthenticationService,Microsoft.AspNetCore.Http.HttpContext,System.String,System.String)">
+            <summary>
+            Аутентифицирует запрос, используя указанную схему аутентификации, и возвращает значение токена.
+            </summary>
+            <param name="auth">The <see cref="T:Microsoft.AspNetCore.Authentication.IAuthenticationService"/>.</param>
+            <param name="context">The <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/> context.</param>
+            <param name="scheme">The name of the authentication scheme.</param>
+            <param name="tokenName">The name of the token.</param>
+            <returns>The value of the token if present.</returns>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.Abstractions.Resources.Exception_UnableToFindServices">
+            <summary>Unable to find the required '{0}' service. Please add all the required services by calling '{1}.{2}' in the application startup code.</summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.Abstractions.Resources.FormatException_UnableToFindServices(System.Object,System.Object,System.Object)">
+            <summary>Unable to find the required '{0}' service. Please add all the required services by calling '{1}.{2}' in the application startup code.</summary>
+        </member>
+    </members>
+</doc>
