@@ -1,0 +1,443 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.AspNetCore.Antiforgery</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.AspNetCore.Builder.AntiforgeryApplicationBuilderExtensions">
+            <summary>
+            Методы расширения защиты от подделки запросов для <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Builder.AntiforgeryApplicationBuilderExtensions.UseAntiforgery(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            Добавляет промежуточное ПО защиты от подделки запросов в конвейер.
+            </summary>
+            <param name="builder">Объект <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/>.</param>
+            <returns>Конструктор приложения.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Antiforgery.AntiforgeryOptions">
+            <summary>
+            Предоставляет программную настройку системы токенов защиты от подделки.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Antiforgery.AntiforgeryOptions.DefaultCookiePrefix">
+            <summary>
+            Префикс cookie по умолчанию: ".AspNetCore.Antiforgery.".
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Antiforgery.AntiforgeryOptions.Cookie">
+            <summary>
+            Определяет параметры, используемые для создания cookie защиты от подделки.
+            </summary>
+            <remarks>
+            <para>
+            Если явное значение <see cref="P:Microsoft.AspNetCore.Http.CookieBuilder.Name"/> не указано, система автоматически создаст
+            уникальное имя, начинающееся с <see cref="F:Microsoft.AspNetCore.Antiforgery.AntiforgeryOptions.DefaultCookiePrefix"/>.
+            </para>
+            <list type="bullet">
+            <item><description><see cref="P:Microsoft.AspNetCore.Http.CookieBuilder.SameSite"/> по умолчанию имеет значение <see cref="F:Microsoft.AspNetCore.Http.SameSiteMode.Strict"/>.</description></item>
+            <item><description><see cref="P:Microsoft.AspNetCore.Http.CookieBuilder.HttpOnly"/> по умолчанию имеет значение <c>true</c>.</description></item>
+            <item><description><see cref="P:Microsoft.AspNetCore.Http.CookieBuilder.IsEssential"/> по умолчанию имеет значение <c>true</c>. Cookie, используемый системой защиты от подделки,
+            является частью системы безопасности, необходимой при использовании аутентификации на основе cookie. Его следует
+            считать обязательным для работы приложения.</description></item>
+            <item><description><see cref="P:Microsoft.AspNetCore.Http.CookieBuilder.SecurePolicy"/> по умолчанию имеет значение <see cref="F:Microsoft.AspNetCore.Http.CookieSecurePolicy.None"/>.</description></item>
+            </list>
+            </remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Antiforgery.AntiforgeryOptions.FormFieldName">
+            <summary>
+            Задает имя поля токена защиты от подделки, используемого системой защиты от подделки.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Antiforgery.AntiforgeryOptions.HeaderName">
+            <summary>
+            Задает имя значения заголовка, используемого системой защиты от подделки. Если <c>null</c>, то
+            проверка защиты от подделки будет учитывать только данные формы.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Antiforgery.AntiforgeryOptions.SuppressXFrameOptionsHeader">
+            <summary>
+            Указывает, следует ли подавить генерацию заголовка X-Frame-Options,
+            который используется для предотвращения ClickJacking. По умолчанию заголовок X-Frame-Options
+            генерируется со значением SAMEORIGIN. Если этот параметр имеет значение 'true',
+            заголовок X-Frame-Options не будет генерироваться для ответа.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Antiforgery.AntiforgeryTokenSet">
+            <summary>
+            Пара токенов защиты от подделки (cookie и токен запроса) для запроса.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Antiforgery.AntiforgeryTokenSet.#ctor(System.String,System.String,System.String,System.String)">
+            <summary>
+            Создает пару токенов защиты от подделки (cookie и токен запроса) для запроса.
+            </summary>
+            <param name="requestToken">Токен, передаваемый в запросе.</param>
+            <param name="cookieToken">Токен, передаваемый в cookie запроса.</param>
+            <param name="formFieldName">Имя поля формы, используемого для токена запроса.</param>
+            <param name="headerName">Имя заголовка, используемого для токена запроса.</param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Antiforgery.AntiforgeryTokenSet.RequestToken">
+            <summary>
+            Получает токен запроса.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Antiforgery.AntiforgeryTokenSet.FormFieldName">
+            <summary>
+            Получает имя поля формы, используемого для токена запроса.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Antiforgery.AntiforgeryTokenSet.HeaderName">
+            <summary>
+            Получает имя заголовка, используемого для токена запроса.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Antiforgery.AntiforgeryTokenSet.CookieToken">
+            <summary>
+            Получает токен cookie.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Antiforgery.AntiforgeryValidationException">
+            <summary>
+            Исключение <see cref="T:System.Exception"/>, которое выбрасывается при неудачной проверке токена защиты от подделки.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Antiforgery.AntiforgeryValidationException.#ctor(System.String)">
+            <summary>
+            Создает новый экземпляр <see cref="T:Microsoft.AspNetCore.Antiforgery.AntiforgeryValidationException"/> с указанным
+            сообщением об исключении.
+            </summary>
+            <param name="message">Сообщение, описывающее ошибку.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Antiforgery.AntiforgeryValidationException.#ctor(System.String,System.Exception)">
+            <summary>
+            Создает новый экземпляр <see cref="T:Microsoft.AspNetCore.Antiforgery.AntiforgeryValidationException"/> с указанным
+            сообщением об исключении и внутренним исключением.
+            </summary>
+            <param name="message">Сообщение, описывающее ошибку.</param>
+            <param name="innerException">Внутреннее исключение <see cref="T:System.Exception"/>.</param>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Antiforgery.IAntiforgery">
+            <summary>
+            Предоставляет доступ к системе защиты от подделки, которая обеспечивает защиту от
+            атак типа Cross-site Request Forgery (XSRF, также называемых CSRF).
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Antiforgery.IAntiforgery.GetAndStoreTokens(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Генерирует объект <see cref="T:Microsoft.AspNetCore.Antiforgery.AntiforgeryTokenSet"/> для этого запроса и сохраняет токен cookie
+            в ответе. Эта операция также устанавливает заголовки "Cache-control" и "Pragma" в значение "no-cache",
+            а заголовок "X-Frame-Options" — в значение "SAMEORIGIN".
+            </summary>
+            <param name="httpContext">Объект <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/>, связанный с текущим запросом.</param>
+            <returns>Объект <see cref="T:Microsoft.AspNetCore.Antiforgery.AntiforgeryTokenSet"/> с токенами для ответа.</returns>
+            <remarks>
+            Этот метод имеет побочный эффект:
+            cookie ответа устанавливается, если с запросом не связана допустимая cookie.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Antiforgery.IAntiforgery.GetTokens(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Генерирует объект <see cref="T:Microsoft.AspNetCore.Antiforgery.AntiforgeryTokenSet"/> для этого запроса.
+            </summary>
+            <param name="httpContext">Объект <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/>, связанный с текущим запросом.</param>
+            <returns>Объект <see cref="T:Microsoft.AspNetCore.Antiforgery.AntiforgeryTokenSet"/> для этого запроса.</returns>
+            <remarks>
+            В отличие от <see cref="M:Microsoft.AspNetCore.Antiforgery.IAntiforgery.GetAndStoreTokens(Microsoft.AspNetCore.Http.HttpContext)"/>, этот метод не имеет побочных эффектов. Вызывающий
+            код отвечает за установку cookie ответа и внедрение возвращенного
+            токена формы соответствующим образом.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Antiforgery.IAntiforgery.IsRequestValidAsync(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Асинхронно возвращает значение, указывающее, проходит ли запрос проверку защиты от подделки. Если
+            запрос использует безопасный HTTP-метод (GET, HEAD, OPTIONS, TRACE), токен защиты от подделки не проверяется.
+            </summary>
+            <param name="httpContext">Объект <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/>, связанный с текущим запросом.</param>
+            <returns>
+            Объект <see cref="T:System.Threading.Tasks.Task`1"/>, который по завершении возвращает <c>true</c>, если запрос использует безопасный HTTP-метод
+            или содержит допустимый токен защиты от подделки; в противном случае возвращает <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Antiforgery.IAntiforgery.ValidateRequestAsync(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Проверяет токен защиты от подделки, который был передан как часть запроса.
+            </summary>
+            <param name="httpContext">Объект <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/>, связанный с текущим запросом.</param>
+            <returns>Задача <see cref="T:System.Threading.Tasks.Task"/>, которая завершается по окончании проверки.</returns>
+            <exception cref="T:Microsoft.AspNetCore.Antiforgery.AntiforgeryValidationException">
+            Выбрасывается, когда запрос не включает допустимый токен защиты от подделки.
+            </exception>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Antiforgery.IAntiforgery.SetCookieTokenAndHeader(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Генерирует и сохраняет токен cookie защиты от подделки, если он недоступен или недействителен.
+            </summary>
+            <param name="httpContext">Объект <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/>, связанный с текущим запросом.</param>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Antiforgery.IAntiforgeryAdditionalDataProvider">
+            <summary>
+            Позволяет предоставлять или проверять дополнительные пользовательские данные для токенов защиты от подделки.
+            Например, разработчик может использовать это для предоставления одноразового номера (nonce) при генерации токена,
+            а затем проверить его при проверке токена.
+            </summary>
+            <remarks>
+            Система защиты от подделки уже внедряет имя пользователя клиента в
+            сгенерированные токены. Этот интерфейс предоставляет и потребляет <em>дополнительные</em>
+            данные. Если входящий токен защиты от подделки содержит дополнительные данные, но
+            дополнительный поставщик данных не настроен, дополнительные данные не будут
+            проверены.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Antiforgery.IAntiforgeryAdditionalDataProvider.GetAdditionalData(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Предоставляет дополнительные данные для хранения в токенах защиты от подделки, сгенерированных
+            во время этого запроса.
+            </summary>
+            <param name="context">Информация о текущем запросе.</param>
+            <returns>Дополнительные данные для внедрения в токен защиты от подделки.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Antiforgery.IAntiforgeryAdditionalDataProvider.ValidateAdditionalData(Microsoft.AspNetCore.Http.HttpContext,System.String)">
+            <summary>
+            Проверяет дополнительные данные, которые были внедрены во входящий токен защиты от подделки.
+            </summary>
+            <param name="context">Информация о текущем запросе.</param>
+            <param name="additionalData">Дополнительные данные, которые были внедрены в токен.</param>
+            <returns>True, если данные действительны; false, если данные недействительны.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Antiforgery.AntiforgeryFeature">
+            <summary>
+            Используется для хранения состояния для каждого запроса.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Antiforgery.DefaultAntiforgery">
+            <summary>
+            Предоставляет доступ к системе защиты от подделки, которая обеспечивает защиту от
+            атак типа Cross-site Request Forgery (XSRF, также называемых CSRF).
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Antiforgery.DefaultAntiforgery.GetAndStoreTokens(Microsoft.AspNetCore.Http.HttpContext)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Antiforgery.DefaultAntiforgery.GetTokens(Microsoft.AspNetCore.Http.HttpContext)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Antiforgery.DefaultAntiforgery.IsRequestValidAsync(Microsoft.AspNetCore.Http.HttpContext)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Antiforgery.DefaultAntiforgery.ValidateRequestAsync(Microsoft.AspNetCore.Http.HttpContext)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Antiforgery.DefaultAntiforgery.SetCookieTokenAndHeader(Microsoft.AspNetCore.Http.HttpContext)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Antiforgery.DefaultAntiforgery.SetDoNotCacheHeaders(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Устанавливает заголовок 'Cache-Control' в значение 'no-cache, no-store', а заголовок 'Pragma' — в значение 'no-cache', переопределяя любое установленное пользователем значение.
+            </summary>
+            <param name="httpContext">Объект <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/>.</param>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Antiforgery.DefaultAntiforgeryAdditionalDataProvider">
+            <summary>
+            Реализация <see cref="T:Microsoft.AspNetCore.Antiforgery.IAntiforgeryAdditionalDataProvider"/> по умолчанию.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Antiforgery.DefaultAntiforgeryAdditionalDataProvider.GetAdditionalData(Microsoft.AspNetCore.Http.HttpContext)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Antiforgery.DefaultAntiforgeryAdditionalDataProvider.ValidateAdditionalData(Microsoft.AspNetCore.Http.HttpContext,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Antiforgery.DefaultAntiforgeryTokenGenerator.GenerateCookieToken">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Antiforgery.DefaultAntiforgeryTokenGenerator.GenerateRequestToken(Microsoft.AspNetCore.Http.HttpContext,Microsoft.AspNetCore.Antiforgery.AntiforgeryToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Antiforgery.DefaultAntiforgeryTokenGenerator.IsCookieTokenValid(Microsoft.AspNetCore.Antiforgery.AntiforgeryToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Antiforgery.DefaultAntiforgeryTokenGenerator.TryValidateTokenSet(Microsoft.AspNetCore.Http.HttpContext,Microsoft.AspNetCore.Antiforgery.AntiforgeryToken,Microsoft.AspNetCore.Antiforgery.AntiforgeryToken,System.String@)">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.AspNetCore.Antiforgery.DefaultClaimUidExtractor">
+            <summary>
+            Реализация <see cref="T:Microsoft.AspNetCore.Antiforgery.IClaimUidExtractor"/> по умолчанию.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Antiforgery.DefaultClaimUidExtractor.ExtractClaimUid(System.Security.Claims.ClaimsPrincipal)">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.AspNetCore.Antiforgery.IAntiforgeryTokenGenerator">
+            <summary>
+            Генерирует и проверяет токены защиты от подделки.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Antiforgery.IAntiforgeryTokenGenerator.GenerateCookieToken">
+            <summary>
+            Генерирует новый случайный токен cookie.
+            </summary>
+            <returns>Объект <see cref="T:Microsoft.AspNetCore.Antiforgery.AntiforgeryToken"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Antiforgery.IAntiforgeryTokenGenerator.GenerateRequestToken(Microsoft.AspNetCore.Http.HttpContext,Microsoft.AspNetCore.Antiforgery.AntiforgeryToken)">
+            <summary>
+            Генерирует токен запроса, соответствующий <paramref name="cookieToken"/>.
+            </summary>
+            <param name="httpContext">Объект <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/>, связанный с текущим запросом.</param>
+            <param name="cookieToken">Допустимый токен cookie.</param>
+            <returns>Объект <see cref="T:Microsoft.AspNetCore.Antiforgery.AntiforgeryToken"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Antiforgery.IAntiforgeryTokenGenerator.IsCookieTokenValid(Microsoft.AspNetCore.Antiforgery.AntiforgeryToken)">
+            <summary>
+            Пытается проверить токен cookie.
+            </summary>
+            <param name="cookieToken">Допустимый токен cookie.</param>
+            <returns><c>true</c>, если токен cookie действителен; в противном случае — <c>false</c>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Antiforgery.IAntiforgeryTokenGenerator.TryValidateTokenSet(Microsoft.AspNetCore.Http.HttpContext,Microsoft.AspNetCore.Antiforgery.AntiforgeryToken,Microsoft.AspNetCore.Antiforgery.AntiforgeryToken,System.String@)">
+            <summary>
+            Пытается проверить набор токенов cookie и запроса для данного <paramref name="httpContext"/>.
+            </summary>
+            <param name="httpContext">Объект <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/>, связанный с текущим запросом.</param>
+            <param name="cookieToken">Токен cookie.</param>
+            <param name="requestToken">Токен запроса.</param>
+            <param name="message">
+            Будет установлено в сообщение проверки, если токены недействительны; в противном случае — <c>null</c>.
+            </param>
+            <returns><c>true</c>, если токены действительны; в противном случае — <c>false</c>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Antiforgery.IAntiforgeryTokenStore.GetRequestTokensAsync(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Получает токены cookie и запроса из запроса.
+            </summary>
+            <param name="httpContext">Объект <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/> для текущего запроса.</param>
+            <returns>Объект <see cref="T:Microsoft.AspNetCore.Antiforgery.AntiforgeryTokenSet"/>.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Antiforgery.IClaimUidExtractor">
+            <summary>
+            Этот интерфейс может извлекать уникальные идентификаторы для <see cref="T:System.Security.Claims.ClaimsPrincipal"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Antiforgery.IClaimUidExtractor.ExtractClaimUid(System.Security.Claims.ClaimsPrincipal)">
+            <summary>
+            Извлекает идентификатор утверждений.
+            </summary>
+            <param name="claimsPrincipal">Объект <see cref="T:System.Security.Claims.ClaimsPrincipal"/>.</param>
+            <returns>Идентификатор утверждений.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Antiforgery.RequireAntiforgeryTokenAttribute">
+            <summary>
+            Атрибут, который можно использовать для указания необходимости проверки токена защиты от подделки.
+            </summary>
+            <param name="required">Значение, указывающее, следует ли проверять токен защиты от подделки.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Antiforgery.RequireAntiforgeryTokenAttribute.#ctor(System.Boolean)">
+            <summary>
+            Атрибут, который можно использовать для указания необходимости проверки токена защиты от подделки.
+            </summary>
+            <param name="required">Значение, указывающее, следует ли проверять токен защиты от подделки.</param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Antiforgery.RequireAntiforgeryTokenAttribute.RequiresValidation">
+            <summary>
+            Получает или задает значение, указывающее, следует ли проверять токен защиты от подделки.
+            </summary>
+            <remarks>
+            По умолчанию имеет значение <see langword="true"/>; значение <see langword="false"/> указывает, что
+            проверку токена защиты от подделки можно пропустить.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Antiforgery.Resources.AntiforgeryTokenValidator_AuthenticatedUserWithoutUsername">
+            <summary>Предоставленная идентификация типа '{0}' помечена {1} = {2}, но не имеет значения для {3}. По умолчанию система защиты от подделки требует, чтобы все прошедшие аутентификацию идентификации имели уникальный {3}. Если невозможно предоставить уникальный {3} для этой идентификации, ...</summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Antiforgery.Resources.FormatAntiforgeryTokenValidator_AuthenticatedUserWithoutUsername(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+            <summary>Предоставленная идентификация типа '{0}' помечена {1} = {2}, но не имеет значения для {3}. По умолчанию система защиты от подделки требует, чтобы все прошедшие аутентификацию идентификации имели уникальный {3}. Если невозможно предоставить уникальный {3} для этой идентификации, ...</summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Antiforgery.Resources.AntiforgeryToken_AdditionalDataCheckFailed">
+            <summary>Предоставленный токен защиты от подделки не прошел проверку пользовательских данных.</summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Antiforgery.Resources.AntiforgeryToken_ClaimUidMismatch">
+            <summary>Предоставленный токен защиты от подделки предназначался для другого пользователя на основе утверждений, чем текущий пользователь.</summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Antiforgery.Resources.AntiforgeryToken_DeserializationFailed">
+            <summary>Не удалось расшифровать токен защиты от подделки.</summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Antiforgery.Resources.AntiforgeryToken_SecurityTokenMismatch">
+            <summary>Токен cookie защиты от подделки и токен запроса не совпадают.</summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Antiforgery.Resources.AntiforgeryToken_TokensSwapped">
+            <summary>Проверка предоставленного токена защиты от подделки не удалась. Токен cookie и токен запроса были перепутаны.</summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Antiforgery.Resources.AntiforgeryToken_UnableToReadRequest">
+            <summary>Не удалось прочитать токен запроса защиты от подделки из отправленной формы.</summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Antiforgery.Resources.AntiforgeryToken_UsernameMismatch">
+            <summary>Предоставленный токен защиты от подделки предназначался для пользователя "{0}", но текущий пользователь — "{1}".</summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Antiforgery.Resources.FormatAntiforgeryToken_UsernameMismatch(System.Object,System.Object)">
+            <summary>Предоставленный токен защиты от подделки предназначался для пользователя "{0}", но текущий пользователь — "{1}".</summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Antiforgery.Resources.Antiforgery_CookieToken_IsInvalid">
+            <summary>Токен cookie защиты от подделки недействителен.</summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Antiforgery.Resources.Antiforgery_CookieToken_MustBeProvided">
+            <summary>Требуемая cookie защиты от подделки "{0}" отсутствует.</summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Antiforgery.Resources.FormatAntiforgery_CookieToken_MustBeProvided(System.Object)">
+            <summary>Требуемая cookie защиты от подделки "{0}" отсутствует.</summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Antiforgery.Resources.Antiforgery_CookieToken_MustBeProvided_Generic">
+            <summary>Необходимо предоставить требуемый токен cookie защиты от подделки.</summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Antiforgery.Resources.Antiforgery_FormToken_MustBeProvided">
+            <summary>Требуемое поле формы защиты от подделки "{0}" отсутствует.</summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Antiforgery.Resources.FormatAntiforgery_FormToken_MustBeProvided(System.Object)">
+            <summary>Требуемое поле формы защиты от подделки "{0}" отсутствует.</summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Antiforgery.Resources.Antiforgery_HeaderToken_MustBeProvided">
+            <summary>Требуемое значение заголовка защиты от подделки "{0}" отсутствует.</summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Antiforgery.Resources.FormatAntiforgery_HeaderToken_MustBeProvided(System.Object)">
+            <summary>Требуемое значение заголовка защиты от подделки "{0}" отсутствует.</summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Antiforgery.Resources.Antiforgery_RequestToken_MustBeProvided">
+            <summary>Требуемый токен запроса защиты от подделки не был предоставлен ни в поле формы "{0}", ни в значении заголовка "{1}".</summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Antiforgery.Resources.FormatAntiforgery_RequestToken_MustBeProvided(System.Object,System.Object)">
+            <summary>Требуемый токен запроса защиты от подделки не был предоставлен ни в поле формы "{0}", ни в значении заголовка "{1}".</summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Antiforgery.Resources.Antiforgery_RequestToken_MustBeProvided_Generic">
+            <summary>Необходимо предоставить требуемый токен запроса защиты от подделки.</summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Antiforgery.Resources.Antiforgery_RequiresSSL">
+            <summary>Система защиты от подделки имеет значение конфигурации {optionName} = {value}, но текущий запрос не является SSL-запросом.</summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Antiforgery.Resources.FormatAntiforgery_RequiresSSL(System.Object,System.Object)">
+            <summary>Система защиты от подделки имеет значение конфигурации {optionName} = {value}, но текущий запрос не является SSL-запросом.</summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Antiforgery.Resources.ArgumentCannotBeNullOrEmpty">
+            <summary>Значение не может быть null или пустым.</summary>
+        </member>
+        <member name="T:Microsoft.Extensions.DependencyInjection.AntiforgeryServiceCollectionExtensions">
+            <summary>
+            Методы расширения для настройки служб защиты от подделки в <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.AntiforgeryServiceCollectionExtensions.AddAntiforgery(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Добавляет службы защиты от подделки в указанный <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
+            </summary>
+            <param name="services">Объект <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>, в который нужно добавить службы.</param>
+            <returns>Объект <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>, чтобы можно было выполнить дополнительные вызовы.</returns>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.AntiforgeryServiceCollectionExtensions.AddAntiforgery(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.AspNetCore.Antiforgery.AntiforgeryOptions})">
+            <summary>
+            Добавляет службы защиты от подделки в указанный <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
+            </summary>
+            <param name="services">Объект <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>, в который нужно добавить службы.</param>
+            <param name="setupAction">Объект <see cref="T:System.Action`1"/> для настройки предоставленного <see cref="T:Microsoft.AspNetCore.Antiforgery.AntiforgeryOptions"/>.</param>
+            <returns>Объект <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>, чтобы можно было выполнить дополнительные вызовы.</returns>
+        </member>
+    </members>
+</doc>
