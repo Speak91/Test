@@ -1,0 +1,221 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.AspNetCore.Authentication.BearerToken</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.AspNetCore.Authentication.BearerToken.AccessTokenResponse">
+            <summary>
+            Объект передачи данных JSON для ответа токена носителя, обычно встречающийся в ответах "/login" и "/refresh".
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.BearerToken.AccessTokenResponse.TokenType">
+            <summary>
+            Значение всегда равно "Bearer", что указывает на то, что этот ответ предоставляет токен "Bearer"
+            в виде непрозрачного <see cref="P:Microsoft.AspNetCore.Authentication.BearerToken.AccessTokenResponse.AccessToken"/>.
+            </summary>
+            <remarks>
+            Это сериализуется как "tokenType": "Bearer" с использованием <see cref="F:System.Text.Json.JsonSerializerDefaults.Web"/>.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.BearerToken.AccessTokenResponse.AccessToken">
+            <summary>
+            Непрозрачный токен носителя для отправки в составе заголовка запроса Authorization.
+            </summary>
+            <remarks>
+            Это сериализуется как "accessToken": "{AccessToken}" с использованием <see cref="F:System.Text.Json.JsonSerializerDefaults.Web"/>.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.BearerToken.AccessTokenResponse.ExpiresIn">
+            <summary>
+            Количество секунд до истечения срока действия <see cref="P:Microsoft.AspNetCore.Authentication.BearerToken.AccessTokenResponse.AccessToken"/>.
+            </summary>
+            <remarks>
+            Это сериализуется как "expiresIn": "{ExpiresInSeconds}" с использованием <see cref="F:System.Text.Json.JsonSerializerDefaults.Web"/>.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.BearerToken.AccessTokenResponse.RefreshToken">
+            <summary>
+            Если установлено, это предоставляет возможность получить новый access_token после его истечения с помощью конечной точки обновления.
+            </summary>
+            <remarks>
+            Это сериализуется как "refreshToken": "{RefreshToken}" с использованием <see cref="F:System.Text.Json.JsonSerializerDefaults.Web"/>.
+            </remarks>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.BearerToken.BearerTokenDefaults">
+            <summary>
+            Значения по умолчанию, используемые аутентификацией токенов носителя.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Authentication.BearerToken.BearerTokenDefaults.AuthenticationScheme">
+            <summary>
+            Значение по умолчанию для свойства AuthenticationScheme в <see cref="T:Microsoft.AspNetCore.Authentication.BearerToken.BearerTokenOptions"/>.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.BearerToken.BearerTokenEvents">
+            <summary>
+            Указывает события, которые обработчик токенов носителя вызывает для предоставления разработчику контроля над процессом аутентификации.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.BearerToken.BearerTokenEvents.OnMessageReceived">
+            <summary>
+            Вызывается при первом получении сообщения протокола.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.BearerToken.BearerTokenEvents.MessageReceivedAsync(Microsoft.AspNetCore.Authentication.BearerToken.MessageReceivedContext)">
+            <summary>
+            Вызывается при первом получении сообщения протокола.
+            </summary>
+            <param name="context"><see cref="T:Microsoft.AspNetCore.Authentication.BearerToken.MessageReceivedContext"/>.</param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.BearerToken.BearerTokenJsonSerializerContext.AccessTokenResponse">
+            <summary>
+            Определяет метаданные контракта сериализации JSON, сгенерированные источником для данного типа.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.BearerToken.BearerTokenJsonSerializerContext.Int64">
+            <summary>
+            Определяет метаданные контракта сериализации JSON, сгенерированные источником для данного типа.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.BearerToken.BearerTokenJsonSerializerContext.String">
+            <summary>
+            Определяет метаданные контракта сериализации JSON, сгенерированные источником для данного типа.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.BearerToken.BearerTokenJsonSerializerContext.Default">
+            <summary>
+            Сериализационный контекст <see cref="T:System.Text.Json.Serialization.JsonSerializerContext"/> по умолчанию, связанный с экземпляром <see cref="T:System.Text.Json.JsonSerializerOptions"/> по умолчанию.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.BearerToken.BearerTokenJsonSerializerContext.GeneratedSerializerOptions">
+            <summary>
+            Сгенерированные источником параметры, связанные с этим контекстом.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.BearerToken.BearerTokenJsonSerializerContext.#ctor">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.BearerToken.BearerTokenJsonSerializerContext.#ctor(System.Text.Json.JsonSerializerOptions)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.BearerToken.BearerTokenJsonSerializerContext.GetTypeInfo(System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.BearerToken.BearerTokenOptions">
+            <summary>
+            Содержит параметры, используемые для аутентификации с использованием непрозрачных токенов носителя.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.BearerToken.BearerTokenOptions.#ctor">
+            <summary>
+            Создает параметры, используемые для аутентификации с использованием непрозрачных токенов носителя.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.BearerToken.BearerTokenOptions.BearerTokenExpiration">
+            <summary>
+            Управляет временем, в течение которого токен носителя остается действительным с момента его создания.
+            Информация о сроке действия хранится в защищенном токене. Из-за этого истекший токен будет отклонен,
+            даже если он передан серверу после того, как клиент должен был его удалить.
+            </summary>
+            <remarks>
+            По умолчанию 1 час.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.BearerToken.BearerTokenOptions.RefreshTokenExpiration">
+            <summary>
+            Управляет временем, в течение которого токен обновления остается действительным с момента его создания.
+            Информация о сроке действия хранится в защищенном токене.
+            </summary>
+            <remarks>
+            По умолчанию 14 дней.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.BearerToken.BearerTokenOptions.BearerTokenProtector">
+            <summary>
+            Если установлено, <see cref="P:Microsoft.AspNetCore.Authentication.BearerToken.BearerTokenOptions.BearerTokenProtector"/> используется для защиты и снятия защиты с идентичности и других свойств, которые хранятся в
+            токене носителя. Если не предоставлен, он будет создан с использованием <see cref="T:Microsoft.AspNetCore.Authentication.TicketDataFormat"/> и <see cref="T:Microsoft.AspNetCore.DataProtection.IDataProtectionProvider"/>
+            из <see cref="T:System.IServiceProvider"/> приложения.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.BearerToken.BearerTokenOptions.RefreshTokenProtector">
+            <summary>
+            Если установлено, <see cref="P:Microsoft.AspNetCore.Authentication.BearerToken.BearerTokenOptions.RefreshTokenProtector"/> используется для защиты и снятия защиты с идентичности и других свойств, которые хранятся в
+            токене обновления. Если не предоставлен, он будет создан с использованием <see cref="T:Microsoft.AspNetCore.Authentication.TicketDataFormat"/> и <see cref="T:Microsoft.AspNetCore.DataProtection.IDataProtectionProvider"/>
+            из <see cref="T:System.IServiceProvider"/> приложения.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.BearerToken.BearerTokenOptions.Events">
+            <summary>
+            Объект, предоставляемый приложением для обработки событий, вызываемых обработчиком аутентификации токенов носителя.
+            Приложение может реализовать интерфейс полностью или создать экземпляр <see cref="T:Microsoft.AspNetCore.Authentication.BearerToken.BearerTokenEvents"/>
+            и назначить делегаты только тем событиям, которые оно хочет обрабатывать.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Authentication.BearerToken.MessageReceivedContext">
+            <summary>
+            Контекст для <see cref="P:Microsoft.AspNetCore.Authentication.BearerToken.BearerTokenEvents.OnMessageReceived"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Authentication.BearerToken.MessageReceivedContext.#ctor(Microsoft.AspNetCore.Http.HttpContext,Microsoft.AspNetCore.Authentication.AuthenticationScheme,Microsoft.AspNetCore.Authentication.BearerToken.BearerTokenOptions)">
+            <summary>
+            Инициализирует новый экземпляр <see cref="T:Microsoft.AspNetCore.Authentication.BearerToken.MessageReceivedContext"/>.
+            </summary>
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.AspNetCore.Authentication.BearerToken.MessageReceivedContext.Token">
+            <summary>
+            Токен носителя. Это предоставляет приложению возможность получить токен из альтернативного местоположения.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Extensions.DependencyInjection.BearerTokenExtensions">
+            <summary>
+            Методы расширения для настройки аутентификации токенов носителя.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.BearerTokenExtensions.AddBearerToken(Microsoft.AspNetCore.Authentication.AuthenticationBuilder)">
+            <summary>
+            Добавляет аутентификацию токенов носителя. Схема по умолчанию указывается через <see cref="F:Microsoft.AspNetCore.Authentication.BearerToken.BearerTokenDefaults.AuthenticationScheme"/>.
+            <para>
+            Токены носителя могут быть получены путем вызова <see cref="M:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.SignInAsync(Microsoft.AspNetCore.Http.HttpContext,System.String,System.Security.Claims.ClaimsPrincipal)" />.
+            </para>
+            </summary>
+            <param name="builder"><see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationBuilder"/>.</param>
+            <returns>Ссылка на <paramref name="builder"/> после завершения операции.</returns>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.BearerTokenExtensions.AddBearerToken(Microsoft.AspNetCore.Authentication.AuthenticationBuilder,System.String)">
+            <summary>
+            Добавляет аутентификацию токенов носителя.
+            <para>
+            Токены носителя могут быть получены путем вызова <see cref="M:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.SignInAsync(Microsoft.AspNetCore.Http.HttpContext,System.String,System.Security.Claims.ClaimsPrincipal)" />.
+            </para>
+            </summary>
+            <param name="builder"><see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationBuilder"/>.</param>
+            <param name="authenticationScheme">Схема аутентификации.</param>
+            <returns>Ссылка на <paramref name="builder"/> после завершения операции.</returns>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.BearerTokenExtensions.AddBearerToken(Microsoft.AspNetCore.Authentication.AuthenticationBuilder,System.Action{Microsoft.AspNetCore.Authentication.BearerToken.BearerTokenOptions})">
+            <summary>
+            Добавляет аутентификацию токенов носителя. Схема по умолчанию указывается через <see cref="F:Microsoft.AspNetCore.Authentication.BearerToken.BearerTokenDefaults.AuthenticationScheme"/>.
+            <para>
+            Токены носителя могут быть получены путем вызова <see cref="M:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.SignInAsync(Microsoft.AspNetCore.Http.HttpContext,System.String,System.Security.Claims.ClaimsPrincipal)" />.
+            </para>
+            </summary>
+            <param name="builder"><see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationBuilder"/>.</param>
+            <param name="configure">Действие, используемое для настройки параметров аутентификации токенов носителя.</param>
+            <returns>Ссылка на <paramref name="builder"/> после завершения операции.</returns>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.BearerTokenExtensions.AddBearerToken(Microsoft.AspNetCore.Authentication.AuthenticationBuilder,System.String,System.Action{Microsoft.AspNetCore.Authentication.BearerToken.BearerTokenOptions})">
+            <summary>
+            Добавляет аутентификацию токенов носителя.
+            <para>
+            Токены носителя могут быть получены путем вызова <see cref="M:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.SignInAsync(Microsoft.AspNetCore.Http.HttpContext,System.String,System.Security.Claims.ClaimsPrincipal)" />.
+            </para>
+            </summary>
+            <param name="builder"><see cref="T:Microsoft.AspNetCore.Authentication.AuthenticationBuilder"/>.</param>
+            <param name="authenticationScheme">Схема аутентификации.</param>
+            <param name="configure">Действие, используемое для настройки параметров аутентификации токенов носителя.</param>
+            <returns>Ссылка на <paramref name="builder"/> после завершения операции.</returns>
+        </member>
+    </members>
+</doc>
